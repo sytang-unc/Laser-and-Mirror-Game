@@ -3,6 +3,11 @@
 	if ($_POST["usrName"]){
 		$_SESSION["user"] = $_POST["usrName"];
 	}
+	else{
+		session_destroy();
+		session_start();
+		#seems weird, check up on this later
+	}
 ?>
 <!DOCTYPE html>
 <html>
