@@ -32,7 +32,7 @@
 				FROM ACCOUNTS
 				WHERE username=? AND password=?"
 			);
-			$stmt->bind_param("ss", $_POST["usrName"], $_POST["password"]);
+			$stmt->bind_param("ss", $_POST["usrName"], $_POST["pass"]);
 			$stmt->execute();
 			#no match found
 			if ($stmt->get_result()->num_rows == 0){
