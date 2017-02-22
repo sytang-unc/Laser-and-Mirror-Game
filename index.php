@@ -12,12 +12,18 @@
 <body>
 <?php
 	if ($_SESSION["user"]){
-		echo "<b>Welcome " . $_SESSION[user] . "</b><br>\n";
+		echo '<b>Welcome ' . $_SESSION[user] . '</b>'
+			. '<form method="post">'
+			. '<input type="submit" value="LOGOUT">';
 	}
 	else{
-		echo '<form action="index.php" method="post">\n';
-		echo '<input type="text" name="usrName">\n';
-		echo '<input type="submit" value="SUBMITION">\n';
+		echo '<form method="post">'
+			. '<fieldset>'
+			. '<legend>Login</legend>'
+				. 'Username: <input type="text" name="usrName"><br>'
+				. 'Password: <input type="text" name="pass"><br>'
+				. '<input type="submit" value="SUBMITION">'
+			. '</fieldset>';
 	}
 ?>
 </body>
