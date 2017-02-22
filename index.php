@@ -16,7 +16,7 @@
 			$_SESSION["LOGG"] = CONNECT_FAIL;
 		}
 		else{
-			$stmt = conn->prepare("
+			$stmt = $conn->prepare("
 				SELECT username
 				FROM ACCOUNTS
 				WHERE username=? AND password=?"
