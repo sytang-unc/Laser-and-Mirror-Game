@@ -79,7 +79,7 @@
 				echo '<b>Given username and password not recognized</b><br>';
 				break;
 			default:
-				echo '<b>Login here:</b>';
+				echo '<b>Login here, loser:</b>';
 		}
 		echo '<form method="post">'
 			. '<fieldset>'
