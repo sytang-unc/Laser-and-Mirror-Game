@@ -1,5 +1,4 @@
 <?php
-
 /*
 	Session variables
 	user - username of logged in user if exists (otherwise not set)
@@ -15,39 +14,48 @@
 	if ($_POST["LOG_ACTION"] == "LOGIN"){
 		$_SESSION["LOG_STATE"] = 0;#pessimism
 		#connect to mysql database
-		$conn = new mysqli(
-			getenv("MYSQL_SERVICE_HOST"),
-			getenv("MYSQL_USER"),
-			getenv("MYSQL_PASSWORD"),
-			getenv("MYSQL_DATABASE")
-		);
-		if ($conn->connect_errno){
+		$host = getenv("MYSQL_SERVICE_HOST");
+		$use = getenv("MYSQL_USER");
+		$pw = getenv("MYSQL_PASSWORD");
+		$db = getenv("MYSQL_DATABASE");
+		if (!$host || !$use || !$pw || !$db){
 			$_SESSION["LOG_REASON"] = CONNECT_FAIL;
 		}
-		#if connection successful, scan accounts table
-		#	for matching user & password
 		else{
-			$stmt = $conn->prepare("
-				SELECT username
-				FROM ACCOUNTS
-				WHERE username=? AND password=?"
+			$conn = new mysqli(
+				$host,
+				$use,
+				$pw,
+				$db
 			);
-			$stmt->bind_param("ss", $_POST["usrName"], $_POST["pass"]);
-			$stmt->execute();
-			#no match found
-			if ($stmt->get_result()->num_rows == 0){
-				$_SESSION["LOG_REASON"] = NO_ACCOUNT;
+			if ($conn->connect_errno){
+				$_SESSION["LOG_REASON"] = CONNECT_FAIL;
 			}
-			#match found, update session accordingly
+			#if connection successful, scan accounts table
+			#	for matching user & password
 			else{
-				$_SESSION["user"] = $_POST["usrName"];
-				$_SESSION["LOG_STATE"] = 1;
-				if (isset($_SESSION["LOG_REASON"])){
-					unset($_SESSION["LOG_REASON"]);
+				$stmt = $conn->prepare("
+					SELECT username
+					FROM ACCOUNTS
+					WHERE username=? AND password=?"
+				);
+				$stmt->bind_param("ss", $_POST["usrName"], $_POST["pass"]);
+				$stmt->execute();
+				#no match found
+				if ($stmt->get_result()->num_rows == 0){
+					$_SESSION["LOG_REASON"] = NO_ACCOUNT;
 				}
+				#match found, update session accordingly
+				else{
+					$_SESSION["user"] = $_POST["usrName"];
+					$_SESSION["LOG_STATE"] = 1;
+					if (isset($_SESSION["LOG_REASON"])){
+						unset($_SESSION["LOG_REASON"]);
+					}
+				}
+				$stmt->close();
+				$conn->close();
 			}
-			$stmt->close();
-			$conn->close();
 		}
 	}
 	#on logout, destroy session
@@ -60,15 +68,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>PHP Test</title>
+	<link rel="stylesheet" href="style.css">
+	<title id="mytitle">PHP Test</title>
 </head>
 <body>
+<div id="login">
 <?php
 	if ($_SESSION["LOG_STATE"]){
 		echo '<b>Welcome ' . $_SESSION[user] . '</b>'
 			. '<form method="post">'
 			. '<input type="hidden" name="LOG_ACTION" value="LOGOUT">'
-			. '<input type="submit" value="LOGOUT">';
+			. '<input type="submit" value="LOGOUT">'
+			. '</form>';
 	}
 	else{
 		switch ($_SESSION["LOG_REASON"]){
@@ -79,7 +90,7 @@
 				echo '<b>Given username and password not recognized</b><br>';
 				break;
 			default:
-				echo '<b>Login here, loser:</b>';
+				echo '<b>Login/Sign-up:</b>';
 		}
 		echo '<form method="post">'
 			. '<fieldset>'
@@ -88,8 +99,29 @@
 				. 'Password: <input type="text" name="pass"><br>'
 				. '<input type="submit" value="SUBMITION">'
 				. '<input type="hidden" name="LOG_ACTION" value="LOGIN">'
-			. '</fieldset>';
+			. '</fieldset>'
+			. '</form>';
 	}
 ?>
+</div>
+
+<canvas id="canvas" width="1000" height="1000">
+	Browser does not support canvas!
+</canvas>
+
+<script src="puzzle.js"></script>
+<div id="hints">
+	<b> Hints Here </b>
+</div>
+
+<script>
+	drawGrid(currPuzzle);
+	createBumpers(currPuzzle);
+	drawBumpers(currPuzzle);
+	dumpGrid(currPuzzle);
+	drawExit(currPuzzle);
+	canvas.addEventListener("click", fire);
+</script>
+
 </body>
 </html>
