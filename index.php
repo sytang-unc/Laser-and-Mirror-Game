@@ -68,7 +68,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" href="style.css">
+	<!-- <link rel="stylesheet" href="style.css"> -->
 	<title id="mytitle">PHP Test</title>
 </head>
 <body>
@@ -109,19 +109,11 @@
 	Browser does not support canvas!
 </canvas>
 
-<script src="puzzle.js"></script>
 <div id="hints">
 	<b> Hints Here </b>
 </div>
 
-<script>
-	drawGrid(currPuzzle);
-	createBumpers(currPuzzle);
-	drawBumpers(currPuzzle);
-	dumpGrid(currPuzzle);
-	drawExit(currPuzzle);
-	canvas.addEventListener("click", fire);
-</script>
+<script src=puzzle.js></script>
 
 </body>
 </html>
