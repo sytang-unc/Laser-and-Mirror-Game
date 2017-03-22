@@ -68,6 +68,8 @@ $(document).ready(function(){
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   ];
 
+  // 0 is an empty square, 1 is a / square, and 2 is a \ square.
+
   var endpoint = [1, "south"];
 
   $('div table.board').append(generate_table(10));
