@@ -110,7 +110,6 @@
 </canvas>
 
 <div id="hints">
-	<b> Hints Here </b>
 </div>
 
 <script src=puzzle.js></script>
