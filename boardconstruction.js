@@ -55,6 +55,72 @@ $(document).ready(function(){
     return rowstring;
   }
 
+  var mapDrawHandler = function() {
+    for (var y=0; y<10; y++) {
+      for (var x=0; x<10; x++) {
+        var whatev = ".row" + y + ".column" + x;
+        switch(board[y][x]) {
+          case 1:
+            $(whatev).css('background-image','url("onesquare.png")');
+            break;
+          case 2:
+            $(whatev).css('background-image','url("twosquare.png")');
+            break;
+        }
+      }
+    }
+    switch(endpoint[1]) {
+      case "north":
+        var whatev = ".top.column" + endpoint[0];
+        $(whatev).css('background-image','url("northsouthpoint.png")');
+        break;
+      case "south":
+        var whatev = ".bottom.column" + endpoint[0];
+        $(whatev).css('background-image','url("northsouthpoint.png")');
+        break;
+      case "east":
+        var whatev = ".row" + endpoint[0] + ".right";
+        $(whatev).css('background-image','url("eastwestpoint.png")');
+        break;
+      case "west":
+        var whatev = ".row" + endpoint[0] + ".left";
+        $(whatev).css('background-image','url("eastwestpoint.png")');
+        break;
+    }
+  }
+
+  var solution = function() {
+    for (var y=0; y<10; y++) {
+      for (var x=0; x<10; x++) {
+        var whatev = ".row" + y + ".column" + x;
+        switch(correctboard[y][x]) {
+          case 1:
+            $(whatev).css('background-image','url("updownbounce.png")');
+            break;
+          case 2:
+            $(whatev).css('background-image','url("rightleftbounce.png")');
+            break;
+          case 3:
+            if (board[y][x] == 1) {
+              $(whatev).css('background-image','url("onesquarerightbounce.png")');
+            }
+            else if (board[y][x] == 2) {
+              $(whatev).css('background-image','url("twosquarerightbounce.png")');
+            }
+            break;
+          case 4:
+            if (board[y][x] == 1) {
+              $(whatev).css('background-image','url("onesquareleftbounce.png")');
+            }
+            else if (board[y][x] == 2) {
+              $(whatev).css('background-image','url("twosquareleftbounce.png")');
+            }
+            break;
+        }
+      }
+    }
+  }
+
   var board = [
     [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
@@ -68,9 +134,24 @@ $(document).ready(function(){
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   ];
 
+  var correctboard = [
+    [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+    [0, 3, 2, 2, 4, 0, 0, 1, 0, 0],
+    [0, 1, 0, 0, 1, 0, 0, 1, 0, 0],
+    [0, 1, 0, 0, 1, 0, 0, 1, 0, 0],
+    [0, 1, 0, 0, 1, 0, 0, 1, 0, 0],
+    [0, 1, 0, 0, 3, 2, 2, 4, 0, 0],
+    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0]
+  ]
+
   // 0 is an empty square, 1 is a / square, and 2 is a \ square.
 
   var endpoint = [1, "south"];
 
   $('div table.board').append(generate_table(10));
+  mapDrawHandler();
+  solution();
 });
