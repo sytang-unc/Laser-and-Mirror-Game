@@ -54,7 +54,7 @@ var dirEnum = {
  *	-clueGrid, grid that has which square has what variable (X, Y, Z, etc)
  */
 
-function Puzzle(gridSize_init, level_init, dec_init = -1, path_init = -1){
+var puzzle = function (gridSize_init, level_init, dec_init = -1, path_init = -1){
 	if (level_init < 0 || level_init > 4){
 		//console.log("Invalid level value");
 		return;
@@ -80,7 +80,7 @@ function Puzzle(gridSize_init, level_init, dec_init = -1, path_init = -1){
 	this.clues = new Array(2*level_init + 1);
 	this.shot = 0;
 
-	this.sol = [orientEnum.CONS, orientEnum.REV, orientEnum.CONS, orientEnum.REV]; 
+	this.sol = [orientEnum.CONS, orientEnum.REV, orientEnum.CONS, orientEnum.REV];
 	this.cluePool = [
 		"If REV is in A1, then CONS is in A2",
 		"If REV is not in A1, then CONS is in A3",
@@ -131,10 +131,10 @@ function Puzzle(gridSize_init, level_init, dec_init = -1, path_init = -1){
 			pathGrid[pos.x][pos.y] = 1;
 			for(i = 0; i < bumpCount; i++){
 				//console.log("Traveling " + dir.x + ", " + dir.y);
-				var dist = this.borderDistance(dir, pos);	
+				var dist = this.borderDistance(dir, pos);
 				var steps = rand(1,dist);
 				//console.log("Steps " + steps);
-				//if (dist < 1) console.log("dist bad: " + 
+				//if (dist < 1) console.log("dist bad: " +
 				//	dist + ", " + dir.x + "," + dir.y + "\n");
 				if (pathGrid[pos.x + steps*dir.x][pos.y + steps*dir.y]){
 					//console.log("broke1\n");
@@ -190,7 +190,7 @@ function Puzzle(gridSize_init, level_init, dec_init = -1, path_init = -1){
 		}
 		while(bumpCount > 0);
 	}
-	
+
 	/*
 	 * Pretty much lifted exactly as is from Andy Green's code
 	 * Calculates the number of cell steps from position "pos"
@@ -215,7 +215,7 @@ function Puzzle(gridSize_init, level_init, dec_init = -1, path_init = -1){
 	}
 
 	/*
-	 * Helper function for generating paths. Important to 
+	 * Helper function for generating paths. Important to
 	 * make sure new bumpers reflect back into grid when creating
 	 * path bumpers
 	 */
@@ -298,7 +298,7 @@ function Puzzle(gridSize_init, level_init, dec_init = -1, path_init = -1){
 		shuffle(positions, this.level + 2);
 		for(i = 0; i < this.level; i++){
 			//console.log("sol[i]: " + this.sol[i]);
-			this.grid[positions[i+2].x][positions[i+2].y] 
+			this.grid[positions[i+2].x][positions[i+2].y]
 				= new Bumper(this.sol[i], 0, 1);
 		}
 		var varSubset = new Array(this.level + 2);
@@ -308,15 +308,15 @@ function Puzzle(gridSize_init, level_init, dec_init = -1, path_init = -1){
 		shuffle(varSubset, this.level + 2);
 		for(i = 0; i < this.level + 2; i++){
 			this.clueGrid[positions[i].x][positions[i].y] = varSubset[i];
-		} 
+		}
 		for(i = 0; i < 2*this.level; i++){
-			this.clues[i] = this.substitute(this.cluePool[i], 
+			this.clues[i] = this.substitute(this.cluePool[i],
 				varSubset, 2 + this.level);
 		}
 		this.clues[2*this.level] = "There are " + this.level + " hidden mirrors";
 		shuffle(this.clues, 2*this.level + 1);
 	}
-	
+
 	this.substitute = function(clue, varArray, num){
 		var str = clue.replace(/A1/g, varArray[0]).replace(/A2/g, varArray[1])
 			.replace(/A3/g, varArray[2]);
@@ -398,9 +398,9 @@ function Puzzle(gridSize_init, level_init, dec_init = -1, path_init = -1){
 			}
 			while (i >= 0 && i < puzzle.gridSize && j >= 0 && j < puzzle.gridSize);
 			return board;
-			
+
 		}
-	}	
+	}
 }
 
 
@@ -415,7 +415,7 @@ function Bumper(orientation, isdecoy=0, ishidden=0){
 	this.orient = orientation;
 	this.decoy = isdecoy;
 	this.hidden = ishidden;
-	
+
 	this.reflect = function(direction){
 		return reflectOrient(this.orient, direction);
 	}
@@ -431,7 +431,7 @@ function Bumper(orientation, isdecoy=0, ishidden=0){
 	}
 }
 
-/* 
+/*
  * coordinate object constructor
  *	-x
  *	-y
@@ -492,7 +492,7 @@ function drawExit(puzzle){
 }
 
 function drawGrid(puzzle){
-	var cl = cellLength(puzzle); 
+	var cl = cellLength(puzzle);
 	ctx.fillStyle = "rgb(255,255,255)";
 	ctx.fillRect(0,0,canvas.width,canvas.height);
 	ctx.strokeStyle = "rgb(50,50,50)";
@@ -625,17 +625,17 @@ function drawGridClues(puzzle){
 	}
 }
 
-/********************************RUN************************************************/
-
-var puzz = new Puzzle(8, 4, 5, 5);
-puzz.createPathBumpers();
-puzz.decoyBumpers();
-puzz.createHiddenAndClues();
-
-drawGrid(puzz);
-drawExit(puzz);
-drawBumpers(puzz);
-//drawPath(puzz);
-displayClues(puzz);
-drawGridClues(puzz);
-canvas.addEventListener("mousemove", function (e){drawGrid(puzz); drawExit(puzz); drawBumpers(puzz); drawPath(puzz); drawGridClues(puzz); drawRect(puzz, canvas, e)});
+// /********************************RUN************************************************/
+//
+// var puzz = new puzzle(8, 4, 5, 5);
+// puzz.createPathBumpers();
+// puzz.decoyBumpers();
+// puzz.createHiddenAndClues();
+//
+// drawGrid(puzz);
+// drawExit(puzz);
+// drawBumpers(puzz);
+// //drawPath(puzz);
+// displayClues(puzz);
+// drawGridClues(puzz);
+// canvas.addEventListener("mousemove", function (e){drawGrid(puzz); drawExit(puzz); drawBumpers(puzz); drawPath(puzz); drawGridClues(puzz); drawRect(puzz, canvas, e)});

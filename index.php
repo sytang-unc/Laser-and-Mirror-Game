@@ -113,6 +113,7 @@
 </div>
 
 <script src=puzzle.js></script>
+<script src=runpuzzle.js></script>
 
 </body>
 </html>
