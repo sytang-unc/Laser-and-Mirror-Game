@@ -1,6 +1,9 @@
 .grid {
   table-layout: fixed;
   border-collapse: collapse;
+  text-align: center;
+  font-family: "Arial";
+  font-weight: bold;
 }
 
 .board {

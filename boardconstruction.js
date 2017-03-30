@@ -55,37 +55,119 @@ $(document).ready(function(){
     return rowstring;
   }
 
+  var clickspaces = {};
+
   var mapDrawHandler = function() {
+    var board = puzz.getBoard(startpoint[0], startpoint[1]);
     for (var y=0; y<10; y++) {
       for (var x=0; x<10; x++) {
         var whatev = ".row" + y + ".column" + x;
-        switch(board[y][x]) {
-          case 1:
-            $(whatev).css('background-image','url("onesquare.png")');
-            break;
-          case 2:
-            $(whatev).css('background-image','url("twosquare.png")');
-            break;
+        if (typeof board[x][y] == 'number'){
+          if(startpoint[0] != -1 || startpoint[1] != -1) {
+            console.log(board[x][y]);
+          }
+          switch(Math.floor(board[x][y]/16)) {
+            case 0:
+              switch(board[x][y]) {
+                case 0:
+                  $(whatev).css('background-image','');
+                  break;
+                case 3:
+                  $(whatev).css('background-image','url("rightleftbounce.png")');
+                  break;
+                case 12:
+                  $(whatev).css('background-image','url("updownbounce.png")');
+                  break;
+                case 15:
+                  $(whatev).css('background-image','url("doublebounce.png")');
+                  break;
+              }
+              break;
+            case 1:
+              switch(board[x][y]-16) {
+                case 0:
+                  $(whatev).css('background-image','url("onesquare.png")');
+                  break;
+                case 6:
+                  $(whatev).css('background-image','url("onesquareleftbounce.png")');
+                  break;
+                case 9:
+                  $(whatev).css('background-image','url("onesquarerightbounce.png")');
+                  break;
+                case 15:
+                  $(whatev).css('background-image','url("onesquaredoublebounce.png")');
+                  break;
+              }
+              break;
+            case 2:
+              switch(board[x][y]-32) {
+                case 0:
+                  $(whatev).css('background-image','url("twosquare.png")');
+                  break;
+                case 5:
+                  $(whatev).css('background-image','url("twosquarerightbounce.png")');
+                  break;
+                case 10:
+                  $(whatev).css('background-image','url("twosquareleftbounce.png")');
+                  break;
+                case 15:
+                  $(whatev).css('background-image','url("twosquaredoublebounce.png")');
+                  break;
+              }
+              break;
+          }
+        }
+        else {
+          $(whatev).html(board[x][y]);
+          $(whatev).css('background-image','url("circle.png")');
         }
       }
     }
-    switch(endpoint[1]) {
-      case "north":
-        var whatev = ".top.column" + endpoint[0];
+    switch(puzz.getEndpoint()[0]) {
+      case sideEnum.BOTTOM:
+        var whatev = ".top.column" + puzz.getEndpoint()[1];
         $(whatev).css('background-image','url("northsouthpoint.png")');
         break;
-      case "south":
-        var whatev = ".bottom.column" + endpoint[0];
+      case sideEnum.TOP:
+        var whatev = ".bottom.column" + puzz.getEndpoint()[1];
         $(whatev).css('background-image','url("northsouthpoint.png")');
         break;
-      case "east":
-        var whatev = ".row" + endpoint[0] + ".right";
+      case sideEnum.RIGHT:
+        var whatev = ".row" + puzz.getEndpoint()[1] + ".right";
         $(whatev).css('background-image','url("eastwestpoint.png")');
         break;
-      case "west":
-        var whatev = ".row" + endpoint[0] + ".left";
+      case sideEnum.LEFT:
+        var whatev = ".row" + puzz.getEndpoint()[1] + ".left";
         $(whatev).css('background-image','url("eastwestpoint.png")');
         break;
+    }
+    for(var side=0; side<4; side++) {
+      for(var index=0; index<10; index++) {
+        switch(side) {
+          case sideEnum.BOTTOM:
+            var whatev = ".top.column" + index + ".out";
+            var clicky = "top column" + index + " out";
+            break;
+          case sideEnum.TOP:
+            var whatev = ".bottom.column" + index + ".out";
+            var clicky = "bottom column" + index + " out";
+            break;
+          case sideEnum.RIGHT:
+            var whatev = ".row" + index + ".right.out";
+            var clicky = "row" + index + " right out";
+            break;
+          case sideEnum.LEFT:
+            var whatev = ".row" + index + ".left.out";
+            var clicky = "row" + index + " left out";
+            break;
+        }
+        clickspaces[clicky] = [side, index];
+        $(whatev).unbind().click(function() {
+          startpoint = clickspaces[this.className];
+          console.log(startpoint);
+          mapDrawHandler();
+        });
+      }
     }
   }
 
@@ -151,7 +233,13 @@ $(document).ready(function(){
 
   // var endpoint = [1, "south"];
 
+  var puzz = new puzzle(10, 4, 5, 5);
+  var startpoint = [-1, -1];
+  puzz.createPathBumpers();
+  puzz.decoyBumpers();
+  puzz.createHiddenAndClues();
+
   $('div table.board').append(generate_table(10));
   mapDrawHandler();
-  solution();
+  // solution();
 });
