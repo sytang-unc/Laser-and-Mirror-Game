@@ -397,6 +397,7 @@ function Puzzle(gridSize_init, level_init, dec_init = -1, path_init = -1){
 				j = j + dir.y;
 			}
 			while (i >= 0 && i < puzzle.gridSize && j >= 0 && j < puzzle.gridSize);
+			return board;
 			
 		}
 	}	
