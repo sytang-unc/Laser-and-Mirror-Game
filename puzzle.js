@@ -353,6 +353,13 @@ var puzzle = function (gridSize_init, level_init, dec_init = -1, path_init = -1)
 			return board;
 		}
 		else{
+			for(i = 0; i < this.gridSize; i++){
+				for(j = 0; j < this.gridSize; j++){
+					if (this.grid[i][j]){
+						board[i][j] = this.grid[i][j].orient? 16:32;
+					}
+				}
+			}
 			var dir;
 			switch(shootSide){
 			case sideEnum.TOP:
@@ -378,7 +385,6 @@ var puzzle = function (gridSize_init, level_init, dec_init = -1, path_init = -1)
 			}
 			do{
 				if (this.grid[i][j]){
-					board[i][j] |= (this.grid[i][j].orient? 16:32);
 					if (dir.x == -1) board[i][j] |= 1;
 					if (dir.x == 1) board[i][j] |= 2;
 					if (dir.y == -1) board[i][j] |= 4;
@@ -400,7 +406,7 @@ var puzzle = function (gridSize_init, level_init, dec_init = -1, path_init = -1)
 				i = i + dir.x;
 				j = j + dir.y;
 			}
-			while (i >= 0 && i < puzzle.gridSize && j >= 0 && j < puzzle.gridSize);
+			while (i >= 0 && i < this.gridSize && j >= 0 && j < this.gridSize);
 			return board;
 		}
 	}
