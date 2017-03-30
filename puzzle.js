@@ -390,10 +390,10 @@ var puzzle = function (gridSize_init, level_init, dec_init = -1, path_init = -1)
 					if (dir.y == -1) board[i][j] |= 4;
 					if (dir.y == 1) board[i][j] |= 8;
 					dir = this.grid[i][j].reflect(dir);
-					if (dir.x == -1) board[i][j] |= 1;
-					if (dir.x == 1) board[i][j] |= 2;
-					if (dir.y == -1) board[i][j] |= 4;
-					if (dir.y == 1) board[i][j] |= 8;
+					if (dir.x == -1) board[i][j] |= 2;
+					if (dir.x == 1) board[i][j] |= 1;
+					if (dir.y == -1) board[i][j] |= 8;
+					if (dir.y == 1) board[i][j] |= 4;
 				}
 				else{
 					if (dir.x != 0){

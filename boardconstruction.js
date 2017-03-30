@@ -88,11 +88,11 @@ $(document).ready(function(){
                 case 0:
                   $(whatev).css('background-image','url("onesquare.png")');
                   break;
-                case 6:
-                  $(whatev).css('background-image','url("onesquareleftbounce.png")');
-                  break;
-                case 9:
+                case 5:
                   $(whatev).css('background-image','url("onesquarerightbounce.png")');
+                  break;
+                case 10:
+                  $(whatev).css('background-image','url("onesquareleftbounce.png")');
                   break;
                 case 15:
                   $(whatev).css('background-image','url("onesquaredoublebounce.png")');
@@ -104,11 +104,11 @@ $(document).ready(function(){
                 case 0:
                   $(whatev).css('background-image','url("twosquare.png")');
                   break;
-                case 5:
-                  $(whatev).css('background-image','url("twosquarerightbounce.png")');
-                  break;
-                case 10:
+                case 6:
                   $(whatev).css('background-image','url("twosquareleftbounce.png")');
+                  break;
+                case 9:
+                  $(whatev).css('background-image','url("twosquarerightbounce.png")');
                   break;
                 case 15:
                   $(whatev).css('background-image','url("twosquaredoublebounce.png")');
