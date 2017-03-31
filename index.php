@@ -87,7 +87,7 @@
 				echo '<b>Login failed due to failed MySQL connection</b><br>';
 				break;
 			case NO_ACCOUNT:
-				echo '<b>Given username and password not recognized</b><br>';
+				echo '<b>username and password not recognized</b><br>';
 				break;
 			default:
 				echo '<b>Login/Sign-up:</b>';
@@ -105,7 +105,10 @@
 ?>
 </div>
     
+    
 <div id="graph">
+<script type="text/javascript" src="fusioncharts/js/fusioncharts.js"></script>
+<script type="text/javascript" src="fusioncharts/js/themes/fusioncharts.theme.ocean.js"></script>
 <?php
     echo '<b>Graph here</b><br>';
  include("includes/fusioncharts.php");
@@ -122,7 +125,7 @@
   exit("There was an error with your connection: ".$dbhandle->connect_error);
  }
 
-  // Form the SQL query that returns the top 10 most populous countries
+  // Form the SQL query that returns the scores
   $strQuery = "SELECT score, time 
         FROM SCORES 
         WHERE username = 'user1'
@@ -178,6 +181,7 @@
 
 ?>
 </div>
+
 
 <canvas id="canvas" width="1000" height="1000">
 	Browser does not support canvas!
