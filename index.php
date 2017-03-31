@@ -107,6 +107,7 @@
     
 <div id="graph">
 <?php
+    echo '<b>Graph here</b><br>';
  include("includes/fusioncharts.php");
  $hostdb = $host;  // MySQl host
  $userdb = $use;  // MySQL username
