@@ -87,7 +87,7 @@
 				echo '<b>Login failed due to failed MySQL connection</b><br>';
 				break;
 			case NO_ACCOUNT:
-				echo '<b>username and password not recognized</b><br>';
+				echo '<b>Given username and password not recognized</b><br>';
 				break;
 			default:
 				echo '<b>Login/Sign-up:</b>';
