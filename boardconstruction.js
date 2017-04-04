@@ -1,5 +1,6 @@
 var boardconstruction = function() {
   this.startpoint = [-1, -1];
+  this.marked = false;
 
   this.generate_table = function(size) {
     var rowstring = "";
@@ -168,10 +169,16 @@ var boardconstruction = function() {
           //   self.startpoint = self.clickspaces[this.className];
           //   self.mapDrawHandler(puzz);
           // });
-          if(this.startpoint[0]==-1&&this.startpoint[1]==-1) {
+          if(this.marked==false) {
             $(whatev).click(function() {
               self.startpoint = self.clickspaces[this.className];
+              self.marked = true;
               self.mapDrawHandler(puzz);
+              $("div.button").html("<input type=\"button\" class=\"nextButton\" value=\"Next Puzzle\">");
+              $(".nextButton").click(function(){
+                $(document).trigger("mark");
+                $("div.button").html("");
+              });
             });
           }
           else {

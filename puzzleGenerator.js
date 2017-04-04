@@ -1,4 +1,8 @@
 var puzzleGenerator = function(){
+	var init_gridSize = 10;
+	var init_decoy = 0;
+	var init_level = 0;
+
 	this.gridSize = 10;
 	this.decoyCount = 0;
 	this.level = 0;
