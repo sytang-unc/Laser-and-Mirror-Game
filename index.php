@@ -126,11 +126,18 @@
  }
 
   // Form the SQL query that returns the scores
-  $strQuery = "SELECT score, time 
+  $strQuery = "SELECT score
         FROM SCORES 
         WHERE username = 'user1'
         ORDER BY time ASC";
 
+  /*
+  $strQuery = "SELECT score, time 
+        FROM SCORES 
+        WHERE username = 'user1'
+        ORDER BY time ASC";
+  */
+    
   // Execute the query, or else return the error message.
   $result = $dbhandle->query($strQuery) or exit("Error code ({$dbhandle->errno}): {$dbhandle->error}");
 
