@@ -111,7 +111,7 @@
 <script type="text/javascript" src="fusioncharts/js/themes/fusioncharts.theme.ocean.js"></script>
 <?php
     echo '<b>Graph here</b><br>';
- include("includes/fusioncharts.php");
+ include("fusioncharts.php");
  $hostdb = $host;  // MySQl host
  $userdb = $use;  // MySQL username
  $passdb = $pw;  // MySQL password
