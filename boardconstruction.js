@@ -1,5 +1,8 @@
-$(document).ready(function(){
-  var generate_table = function(size) {
+var boardconstruction = function() {
+  this.startpoint = [-1, -1];
+  this.marked = false;
+
+  this.generate_table = function(size) {
     var rowstring = "";
 
     // Top Row
@@ -55,17 +58,14 @@ $(document).ready(function(){
     return rowstring;
   }
 
-  var clickspaces = {};
+  this.clickspaces = {};
 
-  var mapDrawHandler = function() {
-    var board = puzz.getBoard(startpoint[0], startpoint[1]);
+  this.mapDrawHandler = function(puzz) {
+    var board = puzz.getBoard(this.startpoint[0], this.startpoint[1]);
     for (var y=0; y<10; y++) {
       for (var x=0; x<10; x++) {
         var whatev = ".row" + y + ".column" + x;
         if (typeof board[x][y] == 'number'){
-          if(startpoint[0] != -1 || startpoint[1] != -1) {
-            console.log(board[x][y]);
-          }
           switch(Math.floor(board[x][y]/16)) {
             case 0:
               switch(board[x][y]) {
@@ -125,22 +125,23 @@ $(document).ready(function(){
     }
     switch(puzz.getEndpoint()[0]) {
       case sideEnum.BOTTOM:
-        var whatev = ".top.column" + puzz.getEndpoint()[1];
+        var whatev = ".top.column" + puzz.getEndpoint()[1] + ".out";
         $(whatev).css('background-image','url("northsouthpoint.png")');
         break;
       case sideEnum.TOP:
-        var whatev = ".bottom.column" + puzz.getEndpoint()[1];
+        var whatev = ".bottom.column" + puzz.getEndpoint()[1] + ".out";
         $(whatev).css('background-image','url("northsouthpoint.png")');
         break;
       case sideEnum.RIGHT:
-        var whatev = ".row" + puzz.getEndpoint()[1] + ".right";
+        var whatev = ".row" + puzz.getEndpoint()[1] + ".right.out";
         $(whatev).css('background-image','url("eastwestpoint.png")');
         break;
       case sideEnum.LEFT:
-        var whatev = ".row" + puzz.getEndpoint()[1] + ".left";
+        var whatev = ".row" + puzz.getEndpoint()[1] + ".left.out";
         $(whatev).css('background-image','url("eastwestpoint.png")');
         break;
     }
+    var endpointcompare = whatev;
     for(var side=0; side<4; side++) {
       for(var index=0; index<10; index++) {
         switch(side) {
@@ -161,85 +162,30 @@ $(document).ready(function(){
             var clicky = "row" + index + " left out";
             break;
         }
-        clickspaces[clicky] = [side, index];
-        $(whatev).unbind().click(function() {
-          startpoint = clickspaces[this.className];
-          console.log(startpoint);
-          mapDrawHandler();
-        });
-      }
-    }
-  }
-
-  var solution = function() {
-    for (var y=0; y<10; y++) {
-      for (var x=0; x<10; x++) {
-        var whatev = ".row" + y + ".column" + x;
-        switch(correctboard[y][x]) {
-          case 1:
-            $(whatev).css('background-image','url("updownbounce.png")');
-            break;
-          case 2:
-            $(whatev).css('background-image','url("rightleftbounce.png")');
-            break;
-          case 3:
-            if (board[y][x] == 1) {
-              $(whatev).css('background-image','url("onesquarerightbounce.png")');
-            }
-            else if (board[y][x] == 2) {
-              $(whatev).css('background-image','url("twosquarerightbounce.png")');
-            }
-            break;
-          case 4:
-            if (board[y][x] == 1) {
-              $(whatev).css('background-image','url("onesquareleftbounce.png")');
-            }
-            else if (board[y][x] == 2) {
-              $(whatev).css('background-image','url("twosquareleftbounce.png")');
-            }
-            break;
+        if (endpointcompare != whatev) {
+          this.clickspaces[clicky] = [side, index];
+          var self = this;
+          // $(whatev).click(function() {
+          //   self.startpoint = self.clickspaces[this.className];
+          //   self.mapDrawHandler(puzz);
+          // });
+          if(this.marked==false) {
+            $(whatev).click(function() {
+              self.startpoint = self.clickspaces[this.className];
+              self.marked = true;
+              self.mapDrawHandler(puzz);
+              $("div.button").html("<input type=\"button\" class=\"nextButton\" value=\"Next Puzzle\">");
+              $(".nextButton").click(function(){
+                $(document).trigger("mark");
+                $("div.button").html("");
+              });
+            });
+          }
+          else {
+            $(whatev).unbind();
+          }
         }
       }
     }
   }
-
-  // var board = [
-  //   [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-  //   [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-  //   [0, 1, 0, 0, 2, 0, 0, 0, 0, 0],
-  //   [0, 0, 0, 2, 0, 0, 0, 0, 0, 0],
-  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   [0, 0, 0, 1, 0, 0, 0, 0, 1, 0],
-  //   [0, 0, 1, 0, 2, 0, 0, 1, 0, 1],
-  //   [0, 0, 0, 2, 0, 0, 0, 1, 0, 2],
-  //   [0, 0, 0, 0, 0, 2, 0, 0, 0, 0],
-  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-  // ];
-  //
-  // var correctboard = [
-  //   [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
-  //   [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
-  //   [0, 3, 2, 2, 4, 0, 0, 1, 0, 0],
-  //   [0, 1, 0, 0, 1, 0, 0, 1, 0, 0],
-  //   [0, 1, 0, 0, 1, 0, 0, 1, 0, 0],
-  //   [0, 1, 0, 0, 1, 0, 0, 1, 0, 0],
-  //   [0, 1, 0, 0, 3, 2, 2, 4, 0, 0],
-  //   [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   [0, 1, 0, 0, 0, 0, 0, 0, 0, 0]
-  // ]
-
-  // 0 is an empty square, 1 is a / square, and 2 is a \ square.
-
-  // var endpoint = [1, "south"];
-
-  var puzz = new puzzle(10, 4, 5, 5);
-  var startpoint = [-1, -1];
-  puzz.createPathBumpers();
-  puzz.decoyBumpers();
-  puzz.createHiddenAndClues();
-
-  $('div table.board').append(generate_table(10));
-  mapDrawHandler();
-  // solution();
-});
+}
