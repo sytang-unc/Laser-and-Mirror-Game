@@ -125,6 +125,7 @@
         FROM SCORES 
         WHERE username = 'user1'
         ORDER BY time ASC";
+
   /*
   $strQuery = "SELECT score, time 
         FROM SCORES 
