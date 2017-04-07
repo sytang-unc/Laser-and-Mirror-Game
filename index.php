@@ -1,15 +1,13 @@
-  <?php
+   <?php
 /*
 	Session variables
 	user - username of logged in user if exists (otherwise not set)
 	LOG_STATE - 1 if user is logged in (otherwise not set)
 	LOG_REASON - reason for login failure (not set when no attempt to login is made)
 */
-
 	#LOG_REASON values
 	define("CONNECT_FAIL", 2);
 	define("NO_ACCOUNT", 3);
-
 	session_start();
 	if ($_POST["LOG_ACTION"] == "LOGIN"){
 		$_SESSION["LOG_STATE"] = 0;#pessimism
@@ -111,29 +109,31 @@
 <script type="text/javascript" src="fusioncharts/js/themes/fusioncharts.theme.ocean.js"></script>
 <?php
     echo '<b>Graph here</b><br>';
- include("includes/fusioncharts.php");
+ include("fusioncharts.php");
  $hostdb = $host;  // MySQl host
  $userdb = $use;  // MySQL username
  $passdb = $pw;  // MySQL password
  $namedb = $db;  // MySQL database name
-
  // Establish a connection to the database
  $dbhandle = new mysqli($hostdb, $userdb, $passdb, $namedb);
-
  // Render an error message, to avoid abrupt failure, if the database connection parameters are incorrect
  if ($dbhandle->connect_error) {
   exit("There was an error with your connection: ".$dbhandle->connect_error);
  }
-
   // Form the SQL query that returns the scores
+  $strQuery = "SELECT score
+        FROM SCORES 
+        WHERE username = 'user1'
+        ORDER BY time ASC";
+  /*
   $strQuery = "SELECT score, time 
         FROM SCORES 
         WHERE username = 'user1'
         ORDER BY time ASC";
-
+  */
+    
   // Execute the query, or else return the error message.
   $result = $dbhandle->query($strQuery) or exit("Error code ({$dbhandle->errno}): {$dbhandle->error}");
-
   // If the query returns a valid response, prepare the JSON string
   if ($result) {
     // The `$arrData` array holds the chart attributes and data
@@ -154,9 +154,7 @@
           "showAlternateHGridColor" => "0"
         )
     );
-
     $arrData["data"] = array();
-
     // Push the data into the array
     while($row = mysqli_fetch_array($result)) {
       array_push($arrData["data"], array(
@@ -165,33 +163,22 @@
           )
       );
     }
-
     /*JSON Encode the data to retrieve the string containing the JSON representation of the data in the array. */
-
     $jsonEncodedData = json_encode($arrData);
-
     $columnChart = new FusionCharts("column2D", "myFirstChart" , 600, 300, "chart-1", "json", $jsonEncodedData);
-
     // Render the chart
     $columnChart->render();
-
     // Close the database connection
     $dbhandle->close();
   }
-
 ?>
 </div>
-
-
 <canvas id="canvas" width="1000" height="1000">
 	Browser does not support canvas!
 </canvas>
-
 <div id="hints">
 </div>
-
 <script src=puzzle.js></script>
 <script src=runpuzzle.js></script>
-
 </body>
 </html>
