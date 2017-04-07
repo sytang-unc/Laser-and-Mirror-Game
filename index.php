@@ -1,15 +1,13 @@
-  <?php
+   <?php
 /*
 	Session variables
 	user - username of logged in user if exists (otherwise not set)
 	LOG_STATE - 1 if user is logged in (otherwise not set)
 	LOG_REASON - reason for login failure (not set when no attempt to login is made)
 */
-
 	#LOG_REASON values
 	define("CONNECT_FAIL", 2);
 	define("NO_ACCOUNT", 3);
-
 	session_start();
 	if ($_POST["LOG_ACTION"] == "LOGIN"){
 		$_SESSION["LOG_STATE"] = 0;#pessimism
@@ -105,22 +103,12 @@
 ?>
 </div>
     
-    
-<div id="graph">
-<h3>This is where I want to display my graph</h3>
-<img src="graph.php" />
-</div>
-
-
 <canvas id="canvas" width="1000" height="1000">
 	Browser does not support canvas!
 </canvas>
-
 <div id="hints">
 </div>
-
 <script src=puzzle.js></script>
 <script src=runpuzzle.js></script>
-
 </body>
 </html>
