@@ -12,16 +12,16 @@ $graph=new PHPGraphLib(550,350);
 $link = mysql_connect($host, $db, $pw)
    or die('Could not connect: ' . mysql_error());
      
-mysql_select_db('scores') or die('Could not select database');
+mysql_select_db('SCORES') or die('Could not select database');
   
 $dataArray=array();
   
 //get data from database
-$sql="SELECT date, score,user FROM scores WHERE user='$user' ORDER BY date";
+$sql="SELECT time, score,username FROM SCORES WHERE username='$user' ORDER BY time";
 $result = mysql_query($sql) or die('Query failed: ' . mysql_error());
 if ($result) {
   while ($row = mysql_fetch_assoc($result)) {
-      $score=$row["date"];
+      $score=$row["time"];
       $count=$row["score"];
       //add to data areray
       $dataArray[$score]=$count;
