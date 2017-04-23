@@ -21,6 +21,7 @@ $sql="SELECT time, score,username FROM SCORES WHERE username= " . "'user1'" . " 
 $result = mysql_query($sql) or die('Query failed: ' . mysql_error());
 if ($result) {
   while ($row = mysql_fetch_assoc($result)) {
+	console.log("FETCHING :\)");
       $score=$row["time"];
       $count=$row["score"];
       //add to data areray
