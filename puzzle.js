@@ -410,6 +410,63 @@ var puzzle = function (gridSize_init, level_init, dec_init = -1, path_init = -1)
 			return board;
 		}
 	}
+	/*
+	 * Convert an entry point into an exit point
+	 */
+	this.checkSol = function(shootSide, shootIndex){
+		var dir, i, j;
+		var outSide, outIndex;
+		var outArray = new Array(2);
+		switch(shootSide){
+		case sideEnum.TOP:
+			dir = dirEnum.DOWN.copyCoord();
+			i = shootIndex;
+			j = this.gridSize - 1;
+			break;
+		case sideEnum.BOTTOM:
+			dir = dirEnum.UP.copyCoord();
+			i = shootIndex;
+			j = 0;
+			break;
+		case sideEnum.LEFT:
+			dir = dirEnum.RIGHT.copyCoord();
+			i = 0;
+			j = shootIndex;
+			break;
+		case sideEnum.RIGHT:
+			dir = dirEnum.LEFT.copyCoord();
+			i = this.gridSize - 1;
+			j = shootIndex;
+			break;
+		}
+		do{
+			if (this.grid[i][j]){
+				dir = this.grid[i][j].reflect(dir);
+			}
+			i = i + dir.x;
+			j = j + dir.y;
+		}
+		while (i >= 0 && i < this.gridSize && j >= 0 && j < this.gridSize);
+		if (dir.x == -1){
+			outSide = sideEnum.LEFT;
+			outIndex = dir.y;
+		}
+		else if (dir.x == 1){
+			outSide = sideEnum.RIGHT;
+			outIndex = dir.y;
+		}
+		else if (dir.y == -1){
+			outSide = sideEnum.BOTTOM;
+			outIndex = dir.x;
+		}
+		else if (dir.y == 1){
+			outSide = sideEnum.TOP;
+			outIndex = dir.x;
+		}
+		outArray[0] = outSide;
+		outArray[1] = outIndex;
+		return outArray;
+	}
 }
 
 
