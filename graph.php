@@ -6,7 +6,7 @@ $host = getenv("MYSQL_SERVICE_HOST");
 $use = getenv("MYSQL_USER");
 $pw = getenv("MYSQL_PASSWORD");
 $db = getenv("MYSQL_DATABASE");
-$user = $_SESSION['user'] 
+$user = $_SESSION['user']; 
 
 $graph=new PHPGraphLib(550,350); 
 $link = mysql_connect($host, $use, $db, $pw)
