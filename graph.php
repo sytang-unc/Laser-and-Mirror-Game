@@ -9,7 +9,7 @@ $db = getenv("MYSQL_DATABASE");
 $user = $_SESSION['user'] 
 
 $graph=new PHPGraphLib(550,350); 
-$link = mysql_connect($host, $db, $pw)
+$link = mysql_connect($host, $use, $db, $pw)
    or die('Could not connect: ' . mysql_error());
      
 mysql_select_db('SCORES') or die('Could not select database');
