@@ -61,6 +61,7 @@ var boardconstruction = function() {
   this.clickspaces = {};
 
   this.mapDrawHandler = function(puzz) {
+    this.clueWrite(puzz);
     var board = puzz.getBoard(this.startpoint[0], this.startpoint[1]);
     for (var y=0; y<10; y++) {
       for (var x=0; x<10; x++) {
@@ -187,5 +188,27 @@ var boardconstruction = function() {
         }
       }
     }
+  }
+
+  this.clueWrite = function(puzz) {
+    var cluestring = ""
+    for (line in puzz.clues) {
+      var clue = "";
+      var split = puzz.clues[line].split("CONS");
+      var splitlength = split.length;
+      for (var i=0; i<splitlength-1; i++) {
+        clue = clue + split.shift() + "<img src=\"twosquaremini.png\"/>";
+      }
+      clue = clue + split.shift();
+      split = clue.split("REV");
+      clue = "";
+      splitlength = split.length;
+      for (var i=0; i<splitlength-1; i++) {
+        clue = clue + split.shift() + "<img src=\"onesquaremini.png\"/>";
+      }
+      clue = clue + split.shift();
+      cluestring = cluestring + clue + "<br/>";
+    }
+    $(".clues").html(cluestring);
   }
 }
