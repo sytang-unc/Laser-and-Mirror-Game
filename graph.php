@@ -17,7 +17,7 @@ mysql_select_db('SCORES') or die('Could not select database');
 $dataArray=array();
   
 //get data from database
-$sql="SELECT time, score,username FROM SCORES WHERE username= " . "user1" . " ORDER BY time";
+$sql="SELECT time, score,username FROM SCORES WHERE username= " . "'user1'" . " ORDER BY time";
 $result = mysql_query($sql) or die('Query failed: ' . mysql_error());
 if ($result) {
   while ($row = mysql_fetch_assoc($result)) {
