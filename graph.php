@@ -22,7 +22,7 @@ $result = $conn->query($sql);// or die('Query failed: ' . mysql_error());
 if ($result) {
 
   while ($row = $result->fetch_array()) {
-	console.log("FETCHING :\)");
+	//console.log("FETCHING :\)");
       $score=$row["time"];
       $count=$row["score"];
       //add to data areray
