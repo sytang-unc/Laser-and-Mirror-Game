@@ -315,6 +315,14 @@ var puzzle = function (gridSize_init, level_init, dec_init = -1, path_init = -1)
 		}
 		this.clues[2*this.level] = "There are " + this.level + " hidden mirrors";
 		shuffle(this.clues, 2*this.level + 1);
+		for(i = 0; i < 2*this.level + 1; i++){
+			if (this.clues[i].startsWith("There are")){
+				var tmpStr = this.clues[0];
+				this.clues[0] = this.clues[i];
+				this.clues[i] = tmpStr;
+				break;
+			}
+		}
 	}
 
 	this.substitute = function(clue, varArray, num){
