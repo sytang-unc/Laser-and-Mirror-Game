@@ -18,7 +18,7 @@ $dataArray=array();
   
 //get data from database
 $sql="SELECT time, score,username FROM SCORES WHERE username= " . "'user1'" . " ORDER BY time";
-$result = $conn->query($sql)// or die('Query failed: ' . mysql_error());
+$result = $conn->query($sql);// or die('Query failed: ' . mysql_error());
 if ($result) {
 
   while ($row = $result->fetch_array()) {
