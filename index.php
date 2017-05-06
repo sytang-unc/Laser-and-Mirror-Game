@@ -105,7 +105,7 @@
 
 <div id="graph">
     <h3>This is where I want to display my graph</h3>
-    <img src="graph.php" />
+    <img src="/php/graph.php" />
 </div>
 
 <canvas id="canvas" width="1000" height="1000">
