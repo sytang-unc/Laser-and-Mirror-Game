@@ -1,5 +1,6 @@
 //TEST Change
-
+//TEST CHANGE AGAIN
+//WHY DO YOU HATE ME CLOUDAPPS
 /*********************************ENUMS************************************/
 
 /*
@@ -57,6 +58,7 @@ var dirEnum = {
  */
 
 var puzzle = function (gridSize_init, level_init, dec_init = -1, path_init = -1){
+	console.log("grid: " + gridSize_init + ", level: " + level_init + " decoy:" + dec_init + " path: " + path_init); 
 	if (level_init < 0 || level_init > 4){
 		//console.log("Invalid level value");
 		return;
@@ -114,7 +116,7 @@ var puzzle = function (gridSize_init, level_init, dec_init = -1, path_init = -1)
 		var bumpGrid;
 		var bumperList = new Array(bumpCount);
 		var posList = new Array(bumpCount);
-		var madePath = 0;
+		var madePath = bumpCount > 0? 0:1;
 		pathGrid = new Array(this.gridSize);
 		bumpGrid = new Array(this.gridSize);
 		for(i = 0; i < this.gridSize; i++){
@@ -459,23 +461,34 @@ var puzzle = function (gridSize_init, level_init, dec_init = -1, path_init = -1)
 		while (i >= 0 && i < this.gridSize && j >= 0 && j < this.gridSize);
 		if (dir.x == -1){
 			outSide = sideEnum.LEFT;
-			outIndex = dir.y;
+			outIndex = j;
 		}
 		else if (dir.x == 1){
 			outSide = sideEnum.RIGHT;
-			outIndex = dir.y;
+			outIndex = j;
 		}
 		else if (dir.y == -1){
 			outSide = sideEnum.BOTTOM;
-			outIndex = dir.x;
+			outIndex = i;
 		}
 		else if (dir.y == 1){
 			outSide = sideEnum.TOP;
-			outIndex = dir.x;
+			outIndex = i;
 		}
 		outArray[0] = outSide;
 		outArray[1] = outIndex;
 		return outArray;
+	}
+	this.checkCorrect = function(shootSide, shootIndex){
+		var outArr = this.checkSol(shootSide, shootIndex);
+		var outSide = outArr[0];
+		var outIndex = outArr[1];
+		console.log("outSide: " + outSide + ", outIndex: " + outIndex);
+		console.log("side: " + this.side + ", index: " + this.index);
+		if (outSide == this.side && outIndex == this.index){
+			return 1;
+		}
+		return 0;
 	}
 }
 

@@ -74,45 +74,45 @@ var boardconstruction = function() {
                   $(whatev).css('background-image','');
                   break;
                 case 3:
-                  $(whatev).css('background-image','url("rightleftbounce.png")');
+                  $(whatev).css('background-image','url("assets/rightleftbounce.png")');
                   break;
                 case 12:
-                  $(whatev).css('background-image','url("updownbounce.png")');
+                  $(whatev).css('background-image','url("assets/updownbounce.png")');
                   break;
                 case 15:
-                  $(whatev).css('background-image','url("doublebounce.png")');
+                  $(whatev).css('background-image','url("assets/doublebounce.png")');
                   break;
               }
               break;
             case 1:
               switch(board[x][y]-16) {
                 case 0:
-                  $(whatev).css('background-image','url("onesquare.png")');
+                  $(whatev).css('background-image','url("assets/onesquare.png")');
                   break;
                 case 5:
-                  $(whatev).css('background-image','url("onesquarerightbounce.png")');
+                  $(whatev).css('background-image','url("assets/onesquarerightbounce.png")');
                   break;
                 case 10:
-                  $(whatev).css('background-image','url("onesquareleftbounce.png")');
+                  $(whatev).css('background-image','url("assets/onesquareleftbounce.png")');
                   break;
                 case 15:
-                  $(whatev).css('background-image','url("onesquaredoublebounce.png")');
+                  $(whatev).css('background-image','url("assets/onesquaredoublebounce.png")');
                   break;
               }
               break;
             case 2:
               switch(board[x][y]-32) {
                 case 0:
-                  $(whatev).css('background-image','url("twosquare.png")');
+                  $(whatev).css('background-image','url("assets/twosquare.png")');
                   break;
                 case 6:
-                  $(whatev).css('background-image','url("twosquareleftbounce.png")');
+                  $(whatev).css('background-image','url("assets/twosquareleftbounce.png")');
                   break;
                 case 9:
-                  $(whatev).css('background-image','url("twosquarerightbounce.png")');
+                  $(whatev).css('background-image','url("assets/twosquarerightbounce.png")');
                   break;
                 case 15:
-                  $(whatev).css('background-image','url("twosquaredoublebounce.png")');
+                  $(whatev).css('background-image','url("assets/twosquaredoublebounce.png")');
                   break;
               }
               break;
@@ -120,26 +120,26 @@ var boardconstruction = function() {
         }
         else {
           $(whatev).html(board[x][y]);
-          $(whatev).css('background-image','url("circle.png")');
+          $(whatev).css('background-image','url("assets/circle.png")');
         }
       }
     }
     switch(puzz.getEndpoint()[0]) {
       case sideEnum.BOTTOM:
         var whatev = ".top.column" + puzz.getEndpoint()[1] + ".out";
-        $(whatev).css('background-image','url("northsouthpoint.png")');
+        $(whatev).css('background-image','url("assets/northsouthpoint.png")');
         break;
       case sideEnum.TOP:
         var whatev = ".bottom.column" + puzz.getEndpoint()[1] + ".out";
-        $(whatev).css('background-image','url("northsouthpoint.png")');
+        $(whatev).css('background-image','url("assets/northsouthpoint.png")');
         break;
       case sideEnum.RIGHT:
         var whatev = ".row" + puzz.getEndpoint()[1] + ".right.out";
-        $(whatev).css('background-image','url("eastwestpoint.png")');
+        $(whatev).css('background-image','url("assets/eastwestpoint.png")');
         break;
       case sideEnum.LEFT:
         var whatev = ".row" + puzz.getEndpoint()[1] + ".left.out";
-        $(whatev).css('background-image','url("eastwestpoint.png")');
+        $(whatev).css('background-image','url("assets/eastwestpoint.png")');
         break;
     }
     var endpointcompare = whatev;
@@ -175,10 +175,19 @@ var boardconstruction = function() {
               self.startpoint = self.clickspaces[this.className];
               self.marked = true;
               self.mapDrawHandler(puzz);
-              $("div.button").html("<input type=\"button\" class=\"nextButton\" value=\"Next Puzzle\">");
+              var corr = puzz.checkCorrect(self.startpoint[0], self.startpoint[1]);
+              if (corr){
+                console.log("Right!");
+              }
+              else{
+                console.log("Wrong!");
+              }
+              stopTimer();
+              $("div.button").html("<input type=\"button\" class=\"nextButton\" value=\"Next Puzzle\"> <br/><br/> <input type=\"button\" class=\"finishButton\" value=\"Finish\">");
               $(".nextButton").click(function(){
-                $(document).trigger("mark");
+                $(document).trigger("mark", [corr]);
                 $("div.button").html("");
+                startTimer();
               });
             });
           }
@@ -197,14 +206,14 @@ var boardconstruction = function() {
       var split = puzz.clues[line].split("CONS");
       var splitlength = split.length;
       for (var i=0; i<splitlength-1; i++) {
-        clue = clue + split.shift() + "<img src=\"twosquaremini.png\"/>";
+        clue = clue + split.shift() + "<img src=\"assets/twosquaremini.png\"/>";
       }
       clue = clue + split.shift();
       split = clue.split("REV");
       clue = "";
       splitlength = split.length;
       for (var i=0; i<splitlength-1; i++) {
-        clue = clue + split.shift() + "<img src=\"onesquaremini.png\"/>";
+        clue = clue + split.shift() + "<img src=\"assets/onesquaremini.png\"/>";
       }
       clue = clue + split.shift();
       cluestring = cluestring + clue + "<br/>";
