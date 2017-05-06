@@ -20,8 +20,8 @@ $(document).ready(function() {
 }).on("mark", function(correct = 0, total = 0){
   console.log("Hi!");
 
-  //puzz = generator.getPuzzle(correct);//new puzzle(10, 4, 5, 5);
-  puzz = new puzzle(10, 4, 5, 5);
+  puzz = generator.getPuzzle(correct);//new puzzle(10, 4, 5, 5);
+  //var puzz = new puzzle(10, 4, 5, 5);
   puzz.createPathBumpers();
   puzz.decoyBumpers();
   puzz.createHiddenAndClues();

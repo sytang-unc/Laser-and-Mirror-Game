@@ -485,6 +485,7 @@ var puzzle = function (gridSize_init, level_init, dec_init = -1, path_init = -1)
 			return 1;
 		}
 		return 0;
+	}
 }
 
 
