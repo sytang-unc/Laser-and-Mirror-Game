@@ -182,10 +182,12 @@ var boardconstruction = function() {
               else{
                 console.log("Wrong!");
               }
-              $("div.button").html("<input type=\"button\" class=\"nextButton\" value=\"Next Puzzle\">");
+              stopTimer();
+              $("div.button").html("<input type=\"button\" class=\"nextButton\" value=\"Next Puzzle\"> <br/><br/> <input type=\"button\" class=\"finishButton\" value=\"Finish\">");
               $(".nextButton").click(function(){
                 $(document).trigger("mark", [corr]);
                 $("div.button").html("");
+                startTimer();
               });
             });
           }
