@@ -1,5 +1,5 @@
-// var generator = new puzzleGenerator();
-
+var generator = new puzzleGenerator();
+var puzz;
 $(document).ready(function() {
   // var puzz = new puzzle(10, 4, 5, 5);
   // puzz.createPathBumpers();
@@ -20,7 +20,8 @@ $(document).ready(function() {
 }).on("mark", function(correct = 0, total = 0){
   console.log("Hi!");
 
-  var puzz = new puzzle(10, 4, 5, 5);
+  //puzz = generator.getPuzzle(correct);//new puzzle(10, 4, 5, 5);
+  puzz = new puzzle(10, 4, 5, 5);
   puzz.createPathBumpers();
   puzz.decoyBumpers();
   puzz.createHiddenAndClues();

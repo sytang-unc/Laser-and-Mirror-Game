@@ -477,6 +477,14 @@ var puzzle = function (gridSize_init, level_init, dec_init = -1, path_init = -1)
 		outArray[1] = outIndex;
 		return outArray;
 	}
+	this.checkCorrect = function(shootSide, shootIndex){
+		var outArr = checkSol(shootSide, shootIndex);
+		var outSide = outArray[0];
+		var outIndex = outArray[1];
+		if (outSide == side && outIndex = index){
+			return 1;
+		}
+		return 0;
 }
 
 

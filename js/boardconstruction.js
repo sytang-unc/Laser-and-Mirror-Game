@@ -175,9 +175,16 @@ var boardconstruction = function() {
               self.startpoint = self.clickspaces[this.className];
               self.marked = true;
               self.mapDrawHandler(puzz);
+              var corr = puzz.checkCorrect(self.startpoint[0], self.startpoint[1]);
+              if (corr){
+                console.log("Right!");
+              }
+              else{
+                console.log("Wrong!");
+              }
               $("div.button").html("<input type=\"button\" class=\"nextButton\" value=\"Next Puzzle\">");
               $(".nextButton").click(function(){
-                $(document).trigger("mark");
+                $(document).trigger("mark", corr);
                 $("div.button").html("");
               });
             });
