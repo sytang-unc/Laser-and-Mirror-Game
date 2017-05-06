@@ -178,12 +178,14 @@ var boardconstruction = function() {
               var corr = puzz.checkCorrect(self.startpoint[0], self.startpoint[1]);
               if (corr){
                 console.log("Right!");
+                $("div.button").append("Correct.<br/></br>");
               }
               else{
                 console.log("Wrong!");
+                $("div.button").append("Wrong. <br/></br>");
               }
               stopTimer();
-              $("div.button").html("<input type=\"button\" class=\"nextButton\" value=\"Next Puzzle\"> <br/><br/> <input type=\"button\" class=\"finishButton\" value=\"Finish\">");
+              $("div.button").append("<input type=\"button\" class=\"nextButton\" value=\"Next Puzzle\"> <br/><br/> <input type=\"button\" class=\"finishButton\" value=\"Finish\">");
               $(".nextButton").click(function(){
                 $(document).trigger("mark", [corr]);
                 $("div.button").html("");
