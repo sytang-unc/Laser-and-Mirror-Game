@@ -184,7 +184,7 @@ var boardconstruction = function() {
               }
               $("div.button").html("<input type=\"button\" class=\"nextButton\" value=\"Next Puzzle\">");
               $(".nextButton").click(function(){
-                $(document).trigger("mark", corr);
+                $(document).trigger("mark", [corr]);
                 $("div.button").html("");
               });
             });

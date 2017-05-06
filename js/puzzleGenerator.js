@@ -17,6 +17,7 @@ var puzzleGenerator = function(){
 	this.curve = defaultDifficultyCurve;
 
 	this.getPuzzle = function(correct = -1){
+		console.log("correct val is : " + correct);
 		if (correct == -1){
 			this.curveIndex = 0;
 		}
@@ -27,7 +28,7 @@ var puzzleGenerator = function(){
 			this.curveIndex = Math.max(0, this.curveIndex - 1);
 		}
 		var ce = this.curve[this.curveIndex];
-		var puzz = new puzzle(this.gridSize, ce.level, ce.decoy);
+		var puzz = new puzzle(this.gridSize, ce.level, ce.decoy, -1);
 		return puzz;
 	}	
 }

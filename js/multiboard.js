@@ -17,7 +17,7 @@ $(document).ready(function() {
     beginTimer();
   });
   // construct.mapDrawHandler(puzz);
-}).on("mark", function(correct = 0, total = 0){
+}).on("mark", function(event, correct = 0, total = 0){
   console.log("Hi!");
 
   puzz = generator.getPuzzle(correct);//new puzzle(10, 4, 5, 5);
