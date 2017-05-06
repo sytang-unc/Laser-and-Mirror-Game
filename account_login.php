@@ -13,7 +13,7 @@
 	    die("Database Connection Failed" . mysqli_error($conn));
 	}
    //modify to test for a existing db, this selects the database of your target
-	$select_db = mysqli_select_db($conn, 'ACCOUNTS');
+	$select_db = mysqli_select_db($conn, $db);
 	if (!$select_db){
  	   die("Database Selection Failed" . mysqli_error($conn));
 	}
@@ -37,6 +37,12 @@
     // Registration
 	$username = "";
 	$password = "";
+	$age = 1;
+	$employ = 0; // 0-1 no or yes 
+	$education = "";  // before high school, college, graduate school
+	$authorize = 0; // 0 = common user, +1 user authority level
+
+
     // If the values are posted, insert them into the database.
     if (isset($_POST['username']) && isset($_POST['password'] && isset($_POST['reg']))){
         $username = $_POST['username'];
@@ -45,27 +51,31 @@
         $query = "INSERT INTO ACCOUNTS (username, password) VALUES ($username, $password)";
         $input = $conn->query($query);
         if($input){
-            echo "New User Created Successfully";
-            $user=$username; // set session to username
+        	$user=$username; // set session to username
+            echo "New User Created Successfully, please select you demographics below.";
+            // I plan to add-user selects the demographics input here by echo a registration html set:
+            //basically the html used here is just selecting from a drop-list by which demographics are selected and the user input his or her level of authority
+            //echo <....>;
+            //$demographics = "INSERT INTO ACCOUNTS (age, employment, education, authority) VALUES ($age, $employ, $education, $authorize)";
+            //$conn->query($demographics);
+
         }else{
             echo "User Registration Failed!";
         }
     }
     //was planning on using href="db-login.php" for login to pull up a page for the ACCOUNT screen creation foreground.... 4/15/17
     elseif (isset($_POST['username']) && isset($_POST['password'] && isset($_POST['log']))) {
- 		//db-login.php........
     	$username = $_POST['username'];
         $password = $_POST['password'];
-        // to select for username and password match
-        $select = mysql_query("SELECT username, password FROM ACCOUNTS WHERE username= $username");
+        //select for username and password match
+        $select = mysql_query("SELECT username, password FROM ACCOUNTS WHERE username = $username");
         $row = mysql_fetch_array($select); // makes the selected info as one row
         $bool = mysql_num_rows($select); // fetch row just boolean if exists.
         if($bool == 1 && $row['password']==$password){
-        	// I was planning here to implement db-login.php as open to an account view around here 4/24/17
-        	$_SESSION['username']= $row['username'];
-        	echo "Account Exists, Successfully login as: ";
-        	echo $username;
+        	$_SESSION['username']= $row['username']; //based on what was shown in graph.php
+        	echo "Account Exists, Successfully login as: ". $username;
         	$user=$username;
+
         } else {
         	echo "Account does not exist, redo your username and/ password please";
         }
