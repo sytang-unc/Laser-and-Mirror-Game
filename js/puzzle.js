@@ -93,9 +93,16 @@ var puzzle = function (gridSize_init, level_init, dec_init = -1, path_init = -1)
 		"If CONS is in A3, then REV is in A4 and CONS is in A5",
 		"If CONS is not in A3, then CONS is in A5",
 		"If REV is in A4, then CONS is in A5 and REV is in A6",
-		"If REV is not in A4, then CONS is in A5"
+		"If REV is not in A4, then CONS is in A5 "
+		//space after A5 is important for testing purposes
 	];
 	this.variablePool = ["Z", "Y", "X", "W", "V", "U"];
+
+	this.initialize = function(){
+		this.createPathBumpers();
+		this.decoyBumpers();
+		this.createHiddenAndClues();
+	}
 
 	/*
 	 * Creates bumpers along the initial path

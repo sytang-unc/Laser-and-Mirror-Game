@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>QUnit Puzzle Tests</title>
+	<link rel="stylesheet" href="qunit-2.3.2.css">
+</head>
+<body>
+	<div id="qunit"></div>
+	<div id="qunit-fixture"></div>
+	<script src = "qunit-2.3.2.js"></script>
+	<script src = "../js/puzzle.js"></script>
+	<script src = "../js/puzzleGenerator.js"></script>
+	<script src = "test_functions.js"></script>
+	<script>
+		QUnit.test("Test puzzle generation", function(assert){
+			var i;
+			for(i = 0; i < 1; i++){
+				var lev = rand(0,4);
+				var puzz = new puzzle(10, lev);
+				puzz.initialize();
+				assert.ok(checkGridSize(puzz), "Grid");
+				assert.ok(checkTargetSanity(puzz), "Target");
+				assert.ok(checkParameterSanity(puzz), "Parameter");
+				assert.ok(checkNumBumpers(puzz, lev), "Bumper Count");
+				assert.ok(checkClueConsistency(puzz), "Clue Consistency"); 
+				assert.ok(checkClueFormat(puzz), "Clue Format");
+			}
+		});
+	</script>
+</body>
+</html>
