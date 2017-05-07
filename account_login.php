@@ -59,7 +59,7 @@
 	       		if($input){
 	       			$_SESSION["LOG_STATE"] = 1;
 	       			$user=$username; // set session to username
-	           		echo "New User Created Successfully, please select you demographics below.";
+	           		echo "New User Created Successfully, please select you demographics below.".$username.$password;
 	        	    // I plan to add-user selects the demographics input here by echo a registration html set:
 	        	    //basically the html used here is just selecting from a drop-list by which demographics are selected and the user input his or her level of authority
 	        	    //echo <....>;
@@ -67,7 +67,7 @@
 	        	    //$conn->query($demographics);
 	        	}else{
 	        		$_SESSION["LOG_STATE"] = 0;
-	            	echo "User Registration Failed!";
+	            	echo "User Registration Failed!".$username.$password;
 	       		}
 	    	}else { //if ($_POST["LOG_ACTION"] == "LOGIN") {
 	       		//select for username and password match
@@ -96,7 +96,6 @@
     <title>Board</title>
     <script src="http://www.cs.unc.edu/Courses/comp426-f16/jquery-3.1.0.js" type="text/javascript"></script>
     <link rel="stylesheet" href="css/board.css" />
-
     <script type="text/javascript" src="fusioncharts/js/fusioncharts.js"></script>
     <script type="text/javascript" src="fusioncharts/js/themes/fusioncharts.theme.ocean.js"></script>
   </head>
