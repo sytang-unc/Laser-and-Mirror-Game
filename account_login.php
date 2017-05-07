@@ -60,7 +60,6 @@
 	       			$_SESSION["LOG_STATE"] = 1;
 	       			$user=$username; // set session to username
 	           		echo "New User Created Successfully, please select you demographics below.";
-	           		echo $input;
 	        	    // I plan to add-user selects the demographics input here by echo a registration html set:
 	        	    //basically the html used here is just selecting from a drop-list by which demographics are selected and the user input his or her level of authority
 	        	    //echo <....>;
@@ -69,7 +68,6 @@
 	        	}else{
 	        		$_SESSION["LOG_STATE"] = 0;
 	            	echo "User Registration Failed!";
-	            	echo $input;
 	       		}
 	    	}else { //if ($_POST["LOG_ACTION"] == "LOGIN") {
 	       		//select for username and password match
@@ -129,7 +127,7 @@
       <div id="window" style="display:block">
         <?php
         	if ($_SESSION["LOG_STATE"]){
-        		echo '<b>Welcome ' . $_SESSION[user] . '</b>'
+        		echo '<b>Welcome ' . $_SESSION[username] . '</b>'
         			. '<form method="post">'
         			. '<input type="hidden" name="LOG_ACTION" value="LOGOUT">'
         			. '<input type="submit" value="LOGOUT">'
@@ -166,12 +164,12 @@
         		//. '<h2 class="form-signin-heading" name="labelUser">Login</h2>'
         		.' Username: <input type="text" name="username" id="inputUserName" class="form-control" placeholder="Username" required autofocus>'
         		.' Password: <input type="text" name="password" id="inputPassword" class="form-control" placeholder="Password" required autofocus>'
-        		.'<input type="submit" name="reg" value="Register">'
-        			. '<input type="hidden" name="LOG_ACTION" value="REGISTER">'
-        		. '<input type="submit" name="log" value="Log In">'
-        			. '<input type="hidden" name="LOG_ACTION" value="LOGIN">'
-        		. '<input type="submit" name="logot" value="Log Out">'
-        			. '<input type="hidden" name="LOG_ACTION" value="LOGOUT">'
+        		.'<input type="submit" name="LOG_ACTION" value="REGISTER">'
+        			//. '<input type="hidden" name="LOG_ACTION" value="REGISTER">'
+        		//. '<input type="submit" name="log" value="Log In">'
+        			. '<input type="submit" name="LOG_ACTION" value="LOGIN">'
+        		//. '<input type="submit" name="logot" value="Log Out">'
+        			. '<input type="submit" name="LOG_ACTION" value="LOGOUT">'
         		.'</fieldset>'
         		.'</form>';
   			}
