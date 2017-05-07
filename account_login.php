@@ -54,10 +54,10 @@
 				$authorize = 0; // 0 = common user, 1++ based on user authority level
 			    // If the values are posted, insert them into the database.
 	    		//if (isset($_POST['username']) && isset($_POST['password'] && isset($_POST['reg']))){
-	     		$query = "INSERT INTO ACCOUNTS (username, password) VALUES (?, ?)";
-	        	$input = $query->bind_param("ss", $username, $password);
-	        	$input->execute();
-	        	if($input){
+	     		$query = $conn->prepare("INSERT INTO ACCOUNTS (username, password) VALUES (?, ?)");
+	        	$query->bind_param("ss", $username, $password);
+	        	$query->execute();
+	        	if($query){
 	       			$_SESSION["LOG_STATE"] = 1;
 	       			$user=$username; // set session to username
 	           		echo "New User Created Successfully, please select you demographics below.";
