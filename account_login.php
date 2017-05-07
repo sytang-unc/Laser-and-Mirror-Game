@@ -59,7 +59,8 @@
 	       		if($input){
 	       			$_SESSION["LOG_STATE"] = 1;
 	       			$user=$username; // set session to username
-	           		echo "New User Created Successfully, please select you demographics below.";//.$username.$password;
+	           		echo "New User Created Successfully, please select you demographics below.";
+	           		echo $input;
 	        	    // I plan to add-user selects the demographics input here by echo a registration html set:
 	        	    //basically the html used here is just selecting from a drop-list by which demographics are selected and the user input his or her level of authority
 	        	    //echo <....>;
@@ -67,7 +68,8 @@
 	        	    //$conn->query($demographics);
 	        	}else{
 	        		$_SESSION["LOG_STATE"] = 0;
-	            	echo "User Registration Failed!";//.$username.$password;
+	            	echo "User Registration Failed!";
+	            	echo $input;
 	       		}
 	    	}else { //if ($_POST["LOG_ACTION"] == "LOGIN") {
 	       		//select for username and password match
@@ -79,6 +81,7 @@
 	        		$_SESSION["LOG_STATE"] = 1;
 	        		echo "Account Exists, Successfully login as: ". $username;
 	        		$user=$username;
+	        		echo $select;
 			   	} else {
 			   		$_SESSION["LOG_STATE"] = 0;
 	    		   	echo "Account does not exist, redo your username and/ password please";
@@ -157,8 +160,8 @@
         		'<form method = "POST">'
         		.'<fieldset class="form-signin" method="POST">'
         		//. '<h2 class="form-signin-heading" name="labelUser">Login</h2>'
-        		.'Username: <input type="text" name="username" id="inputUserName" class="form-control" placeholder="Username" required autofocus>'
-        		.'Password: <input type="text" name="password" id="inputPassword" class="form-control" placeholder="Password" required autofocus>'
+        		.' Username: <input type="text" name="username" id="inputUserName" class="form-control" placeholder="Username" required autofocus>'
+        		.' Password: <input type="text" name="password" id="inputPassword" class="form-control" placeholder="Password" required autofocus>'
         		.'<input type="submit" name="reg" value="Register">'
         			. '<input type="hidden" name="LOG_ACTION" value="REGISTER">'
         		. '<input type="submit" name="log" value="Log In">'
