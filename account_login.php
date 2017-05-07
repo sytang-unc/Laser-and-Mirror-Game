@@ -66,7 +66,7 @@
 	        	    //$demographics = "INSERT INTO ACCOUNTS (age, employment, education, authority) VALUES ($age, $employ, $education, $authorize)";
 	        	    //$conn->query($demographics);
 	        	}else{
-	        		$_SESSION["LOG_STATE"] = 0
+	        		$_SESSION["LOG_STATE"] = 0;
 	            	echo "User Registration Failed!";
 	       		}
 	    	}else { //if ($_POST["LOG_ACTION"] == "LOGIN") {
