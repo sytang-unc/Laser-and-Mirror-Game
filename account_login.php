@@ -84,7 +84,6 @@
 	       		    }
 	        		echo "Account Exists, Successfully login as: ". $username;
 	        		$user=$username;
-	        		echo $select;
 			   	} else {
 			   		$_SESSION["LOG_STATE"] = 0;
 			   		$_SESSION["LOG_REASON"] = NO_ACCOUNT;
@@ -162,7 +161,7 @@
         			 . '<input type="hidden" name="LOG_ACTION" value="LOGOUT">';
         			 */
    //    		echo //'<div class="container">
-        		'<form method = "POST">'
+        		'<form method = "POST" action="/account_login.php">'
         		.'<fieldset class="form-signin" method="POST">'
         		//. '<h2 class="form-signin-heading" name="labelUser">Login</h2>'
         		.' Username: <input type="text" name="username" id="inputUserName" class="form-control" placeholder="Username" required autofocus>'
