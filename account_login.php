@@ -130,7 +130,7 @@
       <div id="window" style="display:block">
         <?php
         	if ($_SESSION["LOG_STATE"]){
-        		echo '<b>Welcome ' . $_SESSION[username] . '</b>'
+        		echo '<b>Welcome ' . $_SESSION['user'] . '</b>'
         			. '<form method="post">'
         			. '<input type="hidden" name="LOG_ACTION" value="LOGOUT">'
         			. '<input type="submit" value="LOGOUT">'
