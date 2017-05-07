@@ -140,7 +140,7 @@
         			default:
         				echo '<div style="font-weight:bold;">Login/Sign-up:</div><br/>';
         		}
-            echo '<table style="border-collapse: collapse; padding: 0;">'
+            echo /*'<table style="border-collapse: collapse; padding: 0;">'
         			 . '<tr>
         			 		<td style="width: 85px;">Username: </td>
         			 		<td><input type="text" name="username" id="inputUserName" class="form-control" placeholder="Username" required autofocus></td>
@@ -153,23 +153,20 @@
         			 . '<input type="hidden" name="LOG_ACTION" value="LOGIN">'
         		 . '<input type="submit" name="logot" value="Log Out">'
         			 . '<input type="hidden" name="LOG_ACTION" value="LOGOUT">';
-        	}
-   /*     		echo //'<div class="container">
-      '<fieldset class="form-signin" method="POST">'
-       . '<h2 class="form-signin-heading" name="labelUser">Login</h2>'
-        .'<div class="user-input">'
-        .'<label for="userName" class="userN">Username</label>'
-        .'<input type="username" name="username" id="inputUserName" class="form-control" placeholder="Username" required autofocus>'
-        .'</div>'
-        .'<div class="passw-input">'
-        .'<label for="inputPassword" class="sr-only">Password</label>'
-        .'<input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>'
-        .'</div>'
-        .'<br>'
-        .'<button class="btn btn-lg btn-primary btn-block" name="reg" type="submit">Register</button>'
-        .'<button class="btn btn-lg btn-primary btn-block" name="log" type="submit">Login</button>'
-        .'<button class="btn btn-lg btn-primary btn-block" name="logot" type="submit">Logout</button>'
-      .'</fieldset>';*/
+        			 */
+   //    		echo //'<div class="container">
+        		'<form method = "POST">'
+        		.'<fieldset class="form-signin" method="POST">'
+        		. '<h2 class="form-signin-heading" name="labelUser">Login</h2>'
+        		.'<input type="submit" name="reg" value="Register">'
+        			. '<input type="hidden" name="LOG_ACTION" value="REGISTER">'
+        		. '<input type="submit" name="log" value="Log In">'
+        			. '<input type="hidden" name="LOG_ACTION" value="LOGIN">'
+        		. '<input type="submit" name="logot" value="Log Out">'
+        			. '<input type="hidden" name="LOG_ACTION" value="LOGOUT">'
+        		.'</fieldset>'
+        		.'</form>';
+  			}
         ?>
 
       </div>
