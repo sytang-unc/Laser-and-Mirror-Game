@@ -43,10 +43,8 @@
 		}
 		$username = $_POST['username'];
         $password = $_POST['password']; 
-        if {
-    		if (empty($username)) {echo "Please enter a username.";}
-    		elseif(empty($password)){echo "Please enter a password";}
-    	}
+    	if (empty($username)) {echo "Please enter a username.";}
+    	elseif(empty($password)){echo "Please enter a password";}
     	else {
 			if($_POST["LOG_ACTION"] == "REGISTER") {
 				// Registration
