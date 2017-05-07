@@ -54,8 +54,9 @@
 				$authorize = 0; // 0 = common user, 1++ based on user authority level
 			    // If the values are posted, insert them into the database.
 	    		//if (isset($_POST['username']) && isset($_POST['password'] && isset($_POST['reg']))){
-	     		$query = "INSERT INTO ACCOUNTS (username, password) VALUES ($username, $password)";
-	        	$input = $conn->prepare($query);
+	     		$query = "INSERT INTO ACCOUNTS (username, password) VALUES (?, ?)";
+	        	$input = $query->bind_param("ss", $username, $password);
+	        	$input->execute();
 	        	if($input){
 	       			$_SESSION["LOG_STATE"] = 1;
 	       			$user=$username; // set session to username
@@ -74,7 +75,7 @@
 	       		$select = $conn->prepare("SELECT username FROM ACCOUNTS WHERE username=? AND password=?");
 	       		$select->bind_param("ss", $username, $password);
 	       		$select->execute();
-	       		if($stmt->get_result()->num_rows != 0){
+	       		if($select->get_result()->num_rows != 0){
 	        	//$_SESSION['username']= $row['username']; //based on what was shown in graph.php
 	        		$_SESSION["LOG_STATE"] = 1;
 	       		    if (isset($_SESSION["LOG_REASON"])){
@@ -94,6 +95,7 @@
     } elseif ($_POST["LOG_ACTION"] == "LOGOUT"){
  		session_destroy();
  		session_start();
+ 		unset($_SESSION["user"])
 	}
 ?>
 <!DOCTYPE html>
