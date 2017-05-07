@@ -166,7 +166,7 @@
         		.'<fieldset class="form-signin" method="POST">'
         		//. '<h2 class="form-signin-heading" name="labelUser">Login</h2>'
         		.' Username: <input type="text" name="username" id="inputUserName" class="form-control" placeholder="Username" required autofocus>'
-        		.' Password: <input type="text" name="password" id="inputPassword" class="form-control" placeholder="Password" required autofocus>'
+        		.' Password: <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required autofocus>'
         		.'<input type="submit" name="LOG_ACTION" value="REGISTER">'
         			//. '<input type="hidden" name="LOG_ACTION" value="REGISTER">'
         		//. '<input type="submit" name="log" value="Log In">'
