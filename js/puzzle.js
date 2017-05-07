@@ -66,14 +66,17 @@ var puzzle = function (gridSize_init, level_init, dec_init = -1, path_init = -1)
 	this.gridSize = gridSize_init;
 	this.grid = new Array(gridSize_init);
 	this.clueGrid = new Array(gridSize_init);
+	this.pathGrid = new Array(gridSize_init);
 	var i;
 	for(i = 0; i < gridSize_init; i++){
 		this.grid[i] = new Array(gridSize_init);
 		this.clueGrid[i] = new Array(gridSize_init);
+		this.pathGrid[i] = new Array(gridSize_init);
 		var j;
 		for(j = 0; j < gridSize_init; j++){
 			this.grid[i][j] = 0;
 			this.clueGrid[i][j] = 0;
+			this.pathGrid[i][j] = 0;
 		}
 	}
 	this.level = level_init;
@@ -119,27 +122,19 @@ var puzzle = function (gridSize_init, level_init, dec_init = -1, path_init = -1)
 		var bump;
 		var initDir = initSqrArray[2];
 		//console.log("init dir is : " + initDir.x + ", " + initDir.y);
-		var pathGrid;
-		var bumpGrid;
 		var bumperList = new Array(bumpCount);
 		var posList = new Array(bumpCount);
 		var madePath = bumpCount > 0? 0:1;
-		pathGrid = new Array(this.gridSize);
-		bumpGrid = new Array(this.gridSize);
-		for(i = 0; i < this.gridSize; i++){
-			pathGrid[i] = new Array(this.gridSize);
-			bumpGrid[i] = new Array(this.gridSize);
-		}
 		do{
 			for(i = 0; i < this.gridSize; i++){
 				for(j = 0; j < this.gridSize; j++){
-					pathGrid[i][j] = 0;
-					bumpGrid[i][j] = 0;
+					this.grid[i][j] = 0;
+					this.pathGrid[i][j] = 0;
 				}
 			}
 			pos = initPos.copyCoord();
 			dir = initDir.copyCoord();
-			pathGrid[pos.x][pos.y] = 1;
+			this.pathGrid[pos.x][pos.y] = 1;
 			for(i = 0; i < bumpCount; i++){
 				//console.log("Traveling " + dir.x + ", " + dir.y);
 				var dist = this.borderDistance(dir, pos);
@@ -147,15 +142,15 @@ var puzzle = function (gridSize_init, level_init, dec_init = -1, path_init = -1)
 				//console.log("Steps " + steps);
 				//if (dist < 1) console.log("dist bad: " +
 				//	dist + ", " + dir.x + "," + dir.y + "\n");
-				if (pathGrid[pos.x + steps*dir.x][pos.y + steps*dir.y]){
+				if (this.pathGrid[pos.x + steps*dir.x][pos.y + steps*dir.y]){
 					//console.log("broke1\n");
 					break;
 				}
 				var breakCond = 0;
 				for(j = 0; j < steps; j++){
 					pos = new Coord(pos.x + dir.x, pos.y + dir.y);
-					pathGrid[pos.x][pos.y] = 1;
-					if (bumpGrid[pos.x][pos.y]) breakCond = 1;
+					this.pathGrid[pos.x][pos.y] = 1;
+					if (this.grid[pos.x][pos.y]) breakCond = 1;
 				}
 				//console.log("pos is " + pos.x + ", " + pos.y);
 				if (breakCond) {
@@ -163,10 +158,13 @@ var puzzle = function (gridSize_init, level_init, dec_init = -1, path_init = -1)
 					break;
 				}
 				posList[i] = pos.copyCoord();
-				bump = this.newBumper(pos.copyCoord(), dir.copyCoord(), i == bumpCount - 1);
-				bumpGrid[pos.x][pos.y] = 1;
-				bumperList[i] = bump;
+				var bump= this.newBumper(
+					pos.copyCoord(), 
+					dir.copyCoord(), 
+					i == bumpCount - 1
+				);
 				dir = bump.reflect(dir);
+				this.grid[pos.x][pos.y] = bump; 
 				if (i == bumpCount - 1){
 					madePath = 1;
 				}
@@ -174,17 +172,13 @@ var puzzle = function (gridSize_init, level_init, dec_init = -1, path_init = -1)
 			dist = this.borderDistance(dir, pos);
 			for(j = 0; j < dist; j++){
 				pos = new Coord(pos.x + dir.x, pos.y + dir.y);
-				pathGrid[pos.x][pos.y] = 1;
-				if (bumpGrid[pos.x][pos.y]){
+				this.pathGrid[pos.x][pos.y] = 1;
+				if (this.grid[pos.x][pos.y]){
 					madePath = 0;
 				}
 			}
 		}
 		while(!madePath);
-		for(i = 0; i < bumpCount; i++){
-			this.grid[posList[i].x][posList[i].y] = bumperList[i];
-		}
-		this.pathGrid = pathGrid;
 	}
 
 	/* Add decoy bumpers to puzzle */
@@ -194,7 +188,7 @@ var puzzle = function (gridSize_init, level_init, dec_init = -1, path_init = -1)
 			var i,j;
 			i = rand(0,this.gridSize-1);
 			j = rand(0, this.gridSize-1);
-			if (!this.pathGrid[i][j]){
+			if (!(this.pathGrid[i][j] || this.grid[i][j])){
 				bumpCount--;
 				this.grid[i][j] = new Bumper(rand(0,1), 1);
 			}
@@ -293,7 +287,7 @@ var puzzle = function (gridSize_init, level_init, dec_init = -1, path_init = -1)
 			i = rand(0, this.gridSize - 1);
 			j = rand(0, this.gridSize - 1);
 		}
-		while( !this.pathGrid[i][j] );
+		while( !this.pathGrid[i][j] || this.grid[i][j]);
 		var positions = new Array(this.level + 2);
 		positions[0] = new Coord(i,j);
 		usedGrid[i][j] = 1;

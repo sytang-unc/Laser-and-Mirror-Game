@@ -61,6 +61,16 @@ var checkNumBumpers = function(puzz, level, decoy=-1, path=-1){
 			totalCount++;
 		}
 	}
+	if (decCount != decoy)
+		console.log("Observed decoy count mismatch");
+	if (hiddenCount != level)
+		console.log("Observed hidden count mismatch");
+	if (totalCount != (level + path + decoy))
+		console.log("Observed total count mismatch");
+	if (decCount != puzz.decNum)
+		console.log("Puzzle decoy count mismatch");
+	if (level != puzz.level)
+		console.log("Puzzle level disagreement");
 	return (decCount == decoy)
 		&& (hiddenCount == level)
 		&& (totalCount == (level + path + decoy) )
@@ -87,11 +97,20 @@ var checkClueConsistency = function(puzz){
 			if (puzz.grid[i][j]) clueHasMirrorCount++;
 			else clueNoMirrorCount++;
 
-			if (!re.test(puzz.clueGrid[i][j])) return false;
+			if (!re.test(puzz.clueGrid[i][j])){
+				console.log("Clue " + puzz.clueGrid[i][j] 
+					+ " does not match regex " + varRE);
+				return false;
+			}
 		}
 	}
+	var expectNoMirror = (puzz.level == 0)? 0:2;
+	if (clueHasMirrorCount != puzz.level)
+		console.log("Mismatch between clues with mirrors and level");
+	if (clueNoMirrorCount != expectNoMirror)
+		console.log("Mismatch between clues without mirrors:" + clueNoMirrorCount);
 	return (clueHasMirrorCount == puzz.level)
-		&& (clueNoMirrorCount == 2);
+		&& (clueNoMirrorCount == expectNoMirror);
 }
 
 
