@@ -95,7 +95,7 @@
     } elseif ($_POST["LOG_ACTION"] == "LOGOUT"){
  		session_destroy();
  		session_start();
- 		echo "Successfully logged out!"
+ 		echo "Successfully logged out!";
  		unset($_SESSION["user"]);
 	}
 ?>
