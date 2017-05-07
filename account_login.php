@@ -71,8 +71,8 @@
 	       		}
 			}else { //if ($_POST["LOG_ACTION"] == "LOGIN") {
 	       		//select for username and password match
-	       		$select = $conn->prepare("SELECT username FROM ACCOUNTS WHERE username=$username AND password=$password");
-	       		$select->bind_param("ss", $_POST["username"], $_POST["password"])
+	       		$select = $conn->prepare("SELECT username FROM ACCOUNTS WHERE username=? AND password=?");
+	       		$select->bind_param("ss", $username, $password);
 	       		$select->execute();
 	       		if($stmt->get_result()->num_rows != 0){
 	        	//$_SESSION['username']= $row['username']; //based on what was shown in graph.php
