@@ -59,7 +59,7 @@
 	       		if($input){
 	       			$_SESSION["LOG_STATE"] = 1;
 	       			$user=$username; // set session to username
-	           		echo "New User Created Successfully, please select you demographics below.".$username.$password;
+	           		echo "New User Created Successfully, please select you demographics below.";//.$username.$password;
 	        	    // I plan to add-user selects the demographics input here by echo a registration html set:
 	        	    //basically the html used here is just selecting from a drop-list by which demographics are selected and the user input his or her level of authority
 	        	    //echo <....>;
@@ -67,7 +67,7 @@
 	        	    //$conn->query($demographics);
 	        	}else{
 	        		$_SESSION["LOG_STATE"] = 0;
-	            	echo "User Registration Failed!".$username.$password;
+	            	echo "User Registration Failed!";//.$username.$password;
 	       		}
 	    	}else { //if ($_POST["LOG_ACTION"] == "LOGIN") {
 	       		//select for username and password match
