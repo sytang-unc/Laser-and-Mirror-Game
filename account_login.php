@@ -30,7 +30,7 @@
 		$pw = getenv("MYSQL_PASSWORD");
 		$db = getenv("MYSQL_DATABASE");
 		$user = $_SESSION['user']; 
-		$conn = new mysqli('host_route', 'use', 'pw');
+		$conn = new mysqli($host_route, $use, $pw, $db);
 		if (!$conn){
 			//die("Database Connection Failed" . mysqli_error($conn));
 			$_SESSION["LOG_REASON"] = CONNECT_FAIL;
@@ -71,7 +71,7 @@
 	       		}
 			}else { //if ($_POST["LOG_ACTION"] == "LOGIN") {
 	       		//select for username and password match
-	       		$select = mysql_query("SELECT username, password FROM ACCOUNTS WHERE username = $username");
+	       		$select = mysqli_execute("SELECT username, password FROM ACCOUNTS WHERE username = $username");
 	       		$row = mysql_fetch_array($select); // makes the selected info as one row
 	       		$bool = mysql_num_rows($select); // fetch row just boolean if exists.
 	       		if($bool == 1 && $row['password']==$password){
