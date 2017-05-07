@@ -26,10 +26,10 @@ if (isset($_SESSION["user"])){
 
 		while ($row = $result->fetch_array()) {
 			//console.log("FETCHING :\)");
-			$score=$row["time"];
-			$count=$row["score"];
+			$time=$row["time"];
+			$score=$row["score"];
 			//add to data areray
-			$dataArray[$score]=$count;
+			$dataArray[$time]=$score;
 		}
 	}
 }
