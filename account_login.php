@@ -55,7 +55,7 @@
 			    // If the values are posted, insert them into the database.
 	    		//if (isset($_POST['username']) && isset($_POST['password'] && isset($_POST['reg']))){
 	     		$query = "INSERT INTO ACCOUNTS (username, password) VALUES ($username, $password)";
-	        	$input = $conn->query($query);
+	        	$input = $conn->prepare($query);
 	        	if($input){
 	       			$_SESSION["LOG_STATE"] = 1;
 	       			$user=$username; // set session to username
@@ -71,10 +71,9 @@
 	       		}
 			}else { //if ($_POST["LOG_ACTION"] == "LOGIN") {
 	       		//select for username and password match
-	       		$select = mysqli_execute("SELECT username, password FROM ACCOUNTS WHERE username = $username");
-	       		$row = mysql_fetch_array($select); // makes the selected info as one row
-	       		$bool = mysql_num_rows($select); // fetch row just boolean if exists.
-	       		if($bool == 1 && $row['password']==$password){
+	       		$select = $conn->prepare("SELECT username FROM ACCOUNTS WHERE username=$username AND password=$password");
+	       		$select->execute();
+	       		if($stmt->get_result()->num_rows != 0){
 	        	//$_SESSION['username']= $row['username']; //based on what was shown in graph.php
 	        		$_SESSION["LOG_STATE"] = 1;
 	       		    if (isset($_SESSION["LOG_REASON"])){
@@ -87,6 +86,7 @@
 			   		$_SESSION["LOG_REASON"] = NO_ACCOUNT;
 	    		   	echo "Account does not exist, redo your username and/ password please";
 	   			}
+	   			$select->close();
 	   			$conn->close();
 	   		}
 		}
