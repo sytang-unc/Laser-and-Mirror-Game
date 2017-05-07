@@ -11,17 +11,17 @@
 	// I organized the conditionals in order
 	/*
 	ACTION = LOGIN/REGISTER -> connect
-		|
+		|-0
 		-------!connected then echo die
-		|
+		|-0
 		------- No empty inputs?....THEN CONTINUED
-		|
+		|0
 		-------ACTION = REGISTER -> insert and verify if registered successful
 		|	---LOG_STATE = 1
 		|
 		-------ACTION = LOGIN -> verify in table first by username then password
 			---LOG_STATE = 1
-	ACTION = LOGOUT ->session end, start
+	ACTION = LOGOUT 0->session end, start
 	*/
 	if ($_POST["LOG_ACTION"] == "LOGIN" || $_POST["LOG_ACTION"] == "REGISTER"){
 		$_SESSION["LOG_STATE"] = 0;
@@ -32,18 +32,18 @@
 		$user = $_SESSION['user']; 
 		$conn = new mysql('host_route', 'use', 'pw');
 		if (!$conn){
-			die("Database Connection Failed" . mysqli_error($conn));
+			//die("Database Connection Failed" . mysqli_error($conn));
 			$_SESSION["LOG_REASON"] = CONNECT_FAIL;
 		}
 		//modify to test for a existing db, this selects the database of your target
 		$select_db = mysqli_select_db($conn, $db);
 		if (!$select_db){
-			die("Database Selection Failed" . mysqli_error($conn));
+			//die("Database Selection Failed" . mysqli_error($conn));
 			$_SESSION["LOG_REASON"] = CONNECT_FAIL;
 		}
 		$username = $_POST['username'];
         $password = $_POST['password']; 
-    	if (empty($username)) {echo "Please enter a username.";}
+    	if ($username)) {echo "Please enter a username.";}
     	elseif(empty($password)){echo "Please enter a password";}
     	else {
 			if($_POST["LOG_ACTION"] == "REGISTER") {
@@ -79,13 +79,18 @@
 	        	if($bool == 1 && $row['password']==$password){
 	        	//$_SESSION['username']= $row['username']; //based on what was shown in graph.php
 	        		$_SESSION["LOG_STATE"] = 1;
+	       		    if (isset($_SESSION["LOG_REASON"])){
+	       		    	unset($_SESSION["LOG_REASON"]);
+	       		    }
 	        		echo "Account Exists, Successfully login as: ". $username;
 	        		$user=$username;
 	        		echo $select;
 			   	} else {
 			   		$_SESSION["LOG_STATE"] = 0;
+			   		$_SESSION["LOG_REASON"] = NO_ACCOUNT;
 	    		   	echo "Account does not exist, redo your username and/ password please";
 	   			}
+	   			$conn->close();
 	   		}
     	}
     } elseif($_POST["LOG_ACTION"] == "LOGOUT"){
