@@ -36,11 +36,11 @@
 			$_SESSION["LOG_REASON"] = CONNECT_FAIL;
 		}
 		//modify to test for a existing db, this selects the database of your target
-		$select_db = mysqli_select_db($conn, $db);
-		if (!$select_db){
+		/*$select_db = mysqli_select_db($conn, $db);
+		/if (!$select_db){
 			//die("Database Selection Failed" . mysqli_error($conn));
 			$_SESSION["LOG_REASON"] = CONNECT_FAIL;
-		}
+		}*/
 		$username = $_POST['username'];
 		$password = $_POST['password']; 
 		if (empty($username)) {echo "Please enter a username.";
