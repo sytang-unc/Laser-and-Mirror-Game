@@ -93,7 +93,7 @@ elseif($_POST["LOG_ACTION"] == "LOGOUT"){
           </tr>
         </table>
       </div>
-      <div id="window">
+      <div id="window" style="display:block">
         <?php
         	if ($_SESSION["LOG_STATE"]){
         		echo '<b>Welcome ' . $_SESSION[user] . '</b>'
@@ -113,10 +113,10 @@ elseif($_POST["LOG_ACTION"] == "LOGOUT"){
         			default:
         				echo '<div style="font-weight:bold;">Login/Sign-up:</div><br/>';
         		}
-            echo '<table>'
-        			 . '<tr><td>Username: </td><td><input type="text" name="usrName"></td></tr>'
+            echo '<table style="border-collapse: collapse; padding: 0;">'
+        			 . '<tr><td style="width: 85px;">Username: </td><td><input type="text" name="usrName"></td></tr>'
         			 . '<tr><td>Password: </td><td><input type="text" name="pass"></td></tr>'
-               . '</table> <br/>'
+               . '</table>'
           		 . '<input type="submit" value="Log In">'
         			 . '<input type="hidden" name="LOG_ACTION" value="LOGIN">';
         	}
