@@ -37,7 +37,7 @@
 		}
 		//modify to test for a existing db, this selects the database of your target
 		$select_db = mysqli_select_db($conn, $db);
-		elseif (!$select_db){
+		if (!$select_db){
 			die("Database Selection Failed" . mysqli_error($conn));
 			$_SESSION["LOG_REASON"] = CONNECT_FAIL;
 		}
@@ -47,7 +47,7 @@
     		if (empty($username)) {echo "Please enter a username.";}
     		if(empty($password)){echo "Please enter a password";}
     	}
-		elseif($_POST["LOG_ACTION"] == "REGISTER") {
+		if($_POST["LOG_ACTION"] == "REGISTER") {
 			// Registration
 			$age = 1; //age = ##
 			$employ = 0; // 0-1 no or yes 
@@ -58,7 +58,7 @@
      			$query = "INSERT INTO ACCOUNTS (username, password) VALUES ($username, $password)";
         		$input = $conn->query($query);
         		if($input){
-        			$_SESSION["LOG_STATE"] = 1
+        			$_SESSION["LOG_STATE"] = 1;
         			$user=$username; // set session to username
             		echo "New User Created Successfully, please select you demographics below.";
         	    // I plan to add-user selects the demographics input here by echo a registration html set:
@@ -69,8 +69,8 @@
         		}else{
         	    	echo "User Registration Failed!";
         		}
-    		//}
-    	elseif ($_POST["LOG_ACTION"] == "LOGIN") {
+    	}
+    	else { //if ($_POST["LOG_ACTION"] == "LOGIN") {
         	//select for username and password match
         	$select = mysql_query("SELECT username, password FROM ACCOUNTS WHERE username = $username");
         	$row = mysql_fetch_array($select); // makes the selected info as one row
