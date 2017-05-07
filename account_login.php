@@ -45,45 +45,47 @@
         $password = $_POST['password']; 
         if {
     		if (empty($username)) {echo "Please enter a username.";}
-    		if(empty($password)){echo "Please enter a password";}
+    		elseif(empty($password)){echo "Please enter a password";}
     	}
-		if($_POST["LOG_ACTION"] == "REGISTER") {
-			// Registration
-			$age = 1; //age = ##
-			$employ = 0; // 0-1 no or yes 
-			$education = "";  // before high school, college, graduate school
-			$authorize = 0; // 0 = common user, 1++ based on user authority level
-		    // If the values are posted, insert them into the database.
-    		//if (isset($_POST['username']) && isset($_POST['password'] && isset($_POST['reg']))){
-     			$query = "INSERT INTO ACCOUNTS (username, password) VALUES ($username, $password)";
-        		$input = $conn->query($query);
-        		if($input){
-        			$_SESSION["LOG_STATE"] = 1;
-        			$user=$username; // set session to username
-            		echo "New User Created Successfully, please select you demographics below.";
-        	    // I plan to add-user selects the demographics input here by echo a registration html set:
-        	    //basically the html used here is just selecting from a drop-list by which demographics are selected and the user input his or her level of authority
-        	    //echo <....>;
-        	    //$demographics = "INSERT INTO ACCOUNTS (age, employment, education, authority) VALUES ($age, $employ, $education, $authorize)";
-        	    //$conn->query($demographics);
-        		}else{
-        	    	echo "User Registration Failed!";
-        		}
-    	}
-    	else { //if ($_POST["LOG_ACTION"] == "LOGIN") {
-        	//select for username and password match
-        	$select = mysql_query("SELECT username, password FROM ACCOUNTS WHERE username = $username");
-        	$row = mysql_fetch_array($select); // makes the selected info as one row
-        	$bool = mysql_num_rows($select); // fetch row just boolean if exists.
-        	if($bool == 1 && $row['password']==$password){
-        		//$_SESSION['username']= $row['username']; //based on what was shown in graph.php
-        		$_SESSION["LOG_STATE"] = 1;
-        		echo "Account Exists, Successfully login as: ". $username;
-        		$user=$username;
-		    } else {
-		    	$_SESSION["LOG_STATE"] = 0;
-    		   	echo "Account does not exist, redo your username and/ password please";
-    		}
+    	else {
+			if($_POST["LOG_ACTION"] == "REGISTER") {
+				// Registration
+				$age = 1; //age = ##
+				$employ = 0; // 0-1 no or yes 
+				$education = "";  // before high school, college, graduate school
+				$authorize = 0; // 0 = common user, 1++ based on user authority level
+			    // If the values are posted, insert them into the database.
+	    		//if (isset($_POST['username']) && isset($_POST['password'] && isset($_POST['reg']))){
+	     		$query = "INSERT INTO ACCOUNTS (username, password) VALUES ($username, $password)";
+	        	$input = $conn->query($query);
+	       		if($input){
+	       			$_SESSION["LOG_STATE"] = 1;
+	       			$user=$username; // set session to username
+	           		echo "New User Created Successfully, please select you demographics below.";
+	        	    // I plan to add-user selects the demographics input here by echo a registration html set:
+	        	    //basically the html used here is just selecting from a drop-list by which demographics are selected and the user input his or her level of authority
+	        	    //echo <....>;
+	        	    //$demographics = "INSERT INTO ACCOUNTS (age, employment, education, authority) VALUES ($age, $employ, $education, $authorize)";
+	        	    //$conn->query($demographics);
+	        	}else{
+	        		$_SESSION["LOG_STATE"] = 0
+	            	echo "User Registration Failed!";
+	       		}
+	    	}else { //if ($_POST["LOG_ACTION"] == "LOGIN") {
+	       		//select for username and password match
+	      		$select = mysql_query("SELECT username, password FROM ACCOUNTS WHERE username = $username");
+	        	$row = mysql_fetch_array($select); // makes the selected info as one row
+	       		$bool = mysql_num_rows($select); // fetch row just boolean if exists.
+	        	if($bool == 1 && $row['password']==$password){
+	        	//$_SESSION['username']= $row['username']; //based on what was shown in graph.php
+	        		$_SESSION["LOG_STATE"] = 1;
+	        		echo "Account Exists, Successfully login as: ". $username;
+	        		$user=$username;
+			   	} else {
+			   		$_SESSION["LOG_STATE"] = 0;
+	    		   	echo "Account does not exist, redo your username and/ password please";
+	   			}
+	   		}
     	}
     } elseif($_POST["LOG_ACTION"] == "LOGOUT"){
  		session_destroy();
