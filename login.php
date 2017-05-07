@@ -95,7 +95,7 @@
     } elseif ($_POST["LOG_ACTION"] == "LOGOUT"){
  		session_destroy();
  		session_start();
- 		echo "Successfully logged out as: ".$username;
+ 		echo "Successfully logged out!"
  		unset($_SESSION["user"]);
 	}
 ?>
@@ -131,7 +131,7 @@
       <div id="window" style="display:block">
         <?php
         	if ($_SESSION["LOG_STATE"]){
-        		echo '<b>Have a fun time! Welcome ' . $_SESSION['user'] . '</b>'
+        		echo '<b>Welcome! ' . $_SESSION['user'] . '</b>'
         			. '<form method="post">'
         			. '<input type="hidden" name="LOG_ACTION" value="LOGOUT">'
         			. '<input type="submit" value="LOGOUT">'
