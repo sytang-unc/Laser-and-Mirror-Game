@@ -111,12 +111,12 @@ elseif($_POST["LOG_ACTION"] == "LOGOUT"){
         				echo '<b>Given username and password not recognized</b><br>';
         				break;
         			default:
-        				echo '<b>Login/Sign-up:</b><br/>';
+        				echo '<div style="font-weight:bold;">Login/Sign-up:</div><br/>';
         		}
             echo '<table>'
         			 . '<tr><td>Username: </td><td><input type="text" name="usrName"></td></tr>'
         			 . '<tr><td>Password: </td><td><input type="text" name="pass"></td></tr>'
-               . '</table>'
+               . '</table> <br/>'
           		 . '<input type="submit" value="Log In">'
         			 . '<input type="hidden" name="LOG_ACTION" value="LOGIN">';
         	}
