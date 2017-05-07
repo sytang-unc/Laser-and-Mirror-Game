@@ -113,15 +113,15 @@ elseif($_POST["LOG_ACTION"] == "LOGOUT"){
         			default:
         				echo '<b>Login/Sign-up:</b>';
         		}
-        		echo '<form method="post">'
-        			. '<fieldset>'
-        			. '<legend>Login</legend>'
-        				. 'Username: <input type="text" name="usrName"><br>'
-        				. 'Password: <input type="text" name="pass"><br>'
-        				. '<input type="submit" value="SUBMITION">'
-        				. '<input type="hidden" name="LOG_ACTION" value="LOGIN">'
-        			. '</fieldset>'
-        			. '</form>';
+            echo '<fieldset>'
+        			 . '<legend>Login</legend>'
+               . '<table>'
+        			 . '<tr><td>Username: </td><td><input type="text" name="usrName"></td></tr>'
+        			 . '<tr><td>Password: </td><td><input type="text" name="pass"></td></tr>'
+               . '</table>'
+          		 . '<input type="submit" value="Log In">'
+        			 . '<input type="hidden" name="LOG_ACTION" value="LOGIN">'
+        			 . '</fieldset>';
         	}
         ?>
       </div>
