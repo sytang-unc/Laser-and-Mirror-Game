@@ -59,7 +59,7 @@
 	        	$query->execute();
 	        	if($query){
 	       			$_SESSION["LOG_STATE"] = 1;
-	       			$user=$username; // set session to username
+	       			$_SESSION['user']=$username; // set session to username
 	           		echo "New User Created Successfully, please select you demographics below.";
 	        	    // I plan to add-user selects the demographics input here by echo a registration html set:
 	        	    //basically the html used here is just selecting from a drop-list by which demographics are selected and the user input his or her level of authority
@@ -82,7 +82,7 @@
 	       		    	unset($_SESSION["LOG_REASON"]);
 	       		    }
 	        		echo "Account Exists, Successfully login as: ". $username;
-	        		$user=$username;
+	        		$_SESSION['user']=$username;
 			   	} else {
 			   		$_SESSION["LOG_STATE"] = 0;
 			   		$_SESSION["LOG_REASON"] = NO_ACCOUNT;
