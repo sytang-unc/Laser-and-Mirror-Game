@@ -30,7 +30,7 @@
 		$pw = getenv("MYSQL_PASSWORD");
 		$db = getenv("MYSQL_DATABASE");
 		$user = $_SESSION['user']; 
-		$conn = new mysql('host_route', 'use', 'pw');
+		$conn = new mysqli('host_route', 'use', 'pw');
 		if (!$conn){
 			//die("Database Connection Failed" . mysqli_error($conn));
 			$_SESSION["LOG_REASON"] = CONNECT_FAIL;
@@ -42,10 +42,10 @@
 			$_SESSION["LOG_REASON"] = CONNECT_FAIL;
 		}
 		$username = $_POST['username'];
-        $password = $_POST['password']; 
-    	if (empty($username)) {echo "Please enter a username.";}
-    	elseif(empty($password)){echo "Please enter a password";}
-    	else {
+		$password = $_POST['password']; 
+		if (empty($username)) {echo "Please enter a username.";
+		} elseif (empty($password)){echo "Please enter a password";
+		} else {
 			if($_POST["LOG_ACTION"] == "REGISTER") {
 				// Registration
 				$age = 1; //age = ##
@@ -56,7 +56,7 @@
 	    		//if (isset($_POST['username']) && isset($_POST['password'] && isset($_POST['reg']))){
 	     		$query = "INSERT INTO ACCOUNTS (username, password) VALUES ($username, $password)";
 	        	$input = $conn->query($query);
-	       		if($input){
+	        	if($input){
 	       			$_SESSION["LOG_STATE"] = 1;
 	       			$user=$username; // set session to username
 	           		echo "New User Created Successfully, please select you demographics below.";
@@ -69,12 +69,12 @@
 	        		$_SESSION["LOG_STATE"] = 0;
 	            	echo "User Registration Failed!";
 	       		}
-	    	}else { //if ($_POST["LOG_ACTION"] == "LOGIN") {
+			}else { //if ($_POST["LOG_ACTION"] == "LOGIN") {
 	       		//select for username and password match
-	      		$select = mysql_query("SELECT username, password FROM ACCOUNTS WHERE username = $username");
-	        	$row = mysql_fetch_array($select); // makes the selected info as one row
+	       		$select = mysql_query("SELECT username, password FROM ACCOUNTS WHERE username = $username");
+	       		$row = mysql_fetch_array($select); // makes the selected info as one row
 	       		$bool = mysql_num_rows($select); // fetch row just boolean if exists.
-	        	if($bool == 1 && $row['password']==$password){
+	       		if($bool == 1 && $row['password']==$password){
 	        	//$_SESSION['username']= $row['username']; //based on what was shown in graph.php
 	        		$_SESSION["LOG_STATE"] = 1;
 	       		    if (isset($_SESSION["LOG_REASON"])){
@@ -89,8 +89,8 @@
 	   			}
 	   			$conn->close();
 	   		}
-    	}
-    } elseif($_POST["LOG_ACTION"] == "LOGOUT"){
+		}
+    } elseif ($_POST["LOG_ACTION"] == "LOGOUT"){
  		session_destroy();
  		session_start();
 	}
