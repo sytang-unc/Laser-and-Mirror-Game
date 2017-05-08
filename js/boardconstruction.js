@@ -192,7 +192,7 @@ var boardconstruction = function() {
                 startTimer();
               });
               $(".finishButton").click(function(){
-                $(document).trigger("done", [1 corr]);
+                $(document).trigger("done", [1, corr]);
               });
             });
           }
