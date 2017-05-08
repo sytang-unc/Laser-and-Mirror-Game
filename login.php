@@ -124,13 +124,13 @@
       <div id="menu">
         <table>
           <tr>
-            <td id="gametab" style="cursor: default;" onClick="location.href='board.html'">
+            <td id="gametab" style="cursor: default;" onClick="location.href='index.php'">
               GAME
             </td>
             <td id="logintab" style="border-bottom: 0px; cursor: default;" onClick="window.location.reload()">
               LOGIN
             </td>
-            <td id="statstab" style="cursor: default;" onClick="location.href='stats.html'">
+            <td id="statstab" style="cursor: default;" onClick="location.href='stats.php'">
               STATS
             </td>
           </tr>

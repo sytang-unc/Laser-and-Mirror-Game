@@ -29,7 +29,7 @@ session_start();
       <div id="menu">
         <table>
           <tr>
-            <td id="gametab" style="cursor: default;" onClick="location.href='board.php'">
+            <td id="gametab" style="cursor: default;" onClick="location.href='index.php'">
               GAME
             </td>
             <td id="logintab" style="cursor: default;" onClick="location.href='login.php'">
