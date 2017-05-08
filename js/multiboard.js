@@ -89,4 +89,5 @@ function submit_score(){
       alert(resp);
     }
   });
+  setTimeout(function(){ location.reload(); }, 500);
 }    
