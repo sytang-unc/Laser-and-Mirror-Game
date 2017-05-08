@@ -32,6 +32,8 @@ if (isset($_SESSION["user"])){
 			$dataArray[$time]=$score;
 		}
 	}
+
+	$conn->close();
 }
 //configure graph
 $graph->setDataValues(true);
@@ -45,5 +47,4 @@ $graph->setLine(true);
 $graph->setLineColor('red');
 $graph->createGraph();
 
-$conn->close();
 ?>
