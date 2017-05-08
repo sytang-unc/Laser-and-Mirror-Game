@@ -17,7 +17,14 @@ session_start();
   <body>
     <div id="container">
       <div id="header">
-        Mirror Logic Puzzle
+      <?php
+        if (isset($_SESSION['user'])){
+          echo 'Mirror Logic Puzzle (' . $_SESSION['user'] . ')';
+        }
+        else{
+          echo 'Mirror Logic Puzzle';
+        }
+      ?>
       </div>
       <div id="menu">
         <table>
