@@ -32,7 +32,8 @@ if (isset($_SESSION["user"])){
 	$conn->close();
 	echo "Score submitted under " . $_SESSION["user"];
 }
-
-echo "Score not submitted. Please log in.";
+else{
+	echo "Score not submitted. Please log in.";
+}
 
 ?>
