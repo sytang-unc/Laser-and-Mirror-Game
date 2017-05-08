@@ -35,7 +35,7 @@
             <td id="logintab" style="cursor: default;" onClick="location.href='login.php'">
               LOGIN
             </td>
-            <td id="statstab" style="cursor: default;" onClick="location.href='stats.html'">
+            <td id="statstab" style="cursor: default;" onClick="location.href='stats.php'">
               STATS
             </td>
           </tr>
