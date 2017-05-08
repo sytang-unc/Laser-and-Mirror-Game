@@ -20,7 +20,7 @@ if (isset($_SESSION["user"])){
 
 
 	//get data from database
-	$sql="SELECT time, score,username FROM SCORES WHERE username=" . $_SESSION["user"] . " ORDER BY time";
+	$sql="SELECT time, score,username FROM SCORES WHERE username='" . $_SESSION["user"] . "' ORDER BY time";
 	$result = $conn->query($sql);// or die('Query failed: ' . mysql_error());
 	if ($result) {
 
