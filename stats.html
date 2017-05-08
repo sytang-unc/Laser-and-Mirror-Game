@@ -1,3 +1,9 @@
+<?php
+
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -29,7 +35,14 @@
         </table>
       </div>
       <div id="window" style="display:block">
-        <img src="/php/graph.php"/>
+      <?php
+        if (isset($_SESSION['user'])){
+          echo '<img src="/php/graph.php"/>';
+        }
+        else{
+          echo "<p>Login to view</p>";
+        }
+      ?>
       </div>
       <div id="footer">
         Ram Neta
