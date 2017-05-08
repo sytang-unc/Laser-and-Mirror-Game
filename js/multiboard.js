@@ -48,6 +48,8 @@ $(document).ready(function() {
   construct.mapDrawHandler(puzz);
 }).on("done", function(event, chose = 0, correct = 0) {
   var curtime = timer;
+  stopTimer();
+  $('#timer').html("0s");
   if (correct) {
     questioncorr++;
   }
