@@ -52,6 +52,12 @@ $(document).ready(function() {
   $('#timer').html("0s");
   if (correct) {
     questioncorr++;
+    currentstreak++;
+    score += Math.min(8, currentstreak);
+    if (currentstreak > streak) {
+      streak = currentstreak;
+    }
+
   }
   var construct = new boardconstruction();
 
