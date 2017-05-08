@@ -9,7 +9,7 @@ var beginTimer = function() {
       timer = Math.round((timer - 0.1)*10)/10;
       $('#timer').html(timer.toFixed(1) + "s");
       if (timer <= 0){
-        $(document).trigger("done", 0);
+        $(document).trigger("done", [0,0]);
       }
     }
   }, 100);
