@@ -28,7 +28,7 @@ $(document).ready(function() {
   if (correct) {
     questioncorr++;
     currentstreak++;
-    score += Math.max(8, currentstreak);
+    score += Math.min(8, 1+currentstreak);
     if (currentstreak > streak) {
       streak = currentstreak;
     }
