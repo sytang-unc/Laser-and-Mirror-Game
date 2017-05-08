@@ -63,7 +63,7 @@ $(document).ready(function() {
     clueBegStr = "You have timed out!";
   }
   
-  $('.clues').html(clueBegStr + clueEndStr;
+  $('.clues').html(clueBegStr + clueEndStr);
   $("div.button").html("<input type=\"button\" onclick=\"submit_score()\" class=\"submitButton\" value=\"Submit Score\">");
 });
 
