@@ -191,6 +191,9 @@ var boardconstruction = function() {
                 $("div.button").html("");
                 startTimer();
               });
+              $(".finishButton").click(function(){
+                $(document).trigger("done", [corr]);
+              });
             });
           }
           else {
