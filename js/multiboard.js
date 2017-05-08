@@ -57,7 +57,7 @@ $(document).ready(function() {
   var clueBegStr;
   var clueEndStr = " You answered " + questioncorr + " out of " + questions + " questions correct, with a longest streak of " + streak + " correct answers. Your score was " + score + ". Would you like to submit your score?";
   if (chose){
-    clueBegStr = "You have chosen to finish with " + curtimer + " seconds to spare!";
+    clueBegStr = "You have chosen to finish with " + curtime + " seconds to spare!";
   }
   else{
     clueBegStr = "You have timed out!";
